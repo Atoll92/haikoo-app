@@ -5,7 +5,36 @@ html {
   font-family: 'Inter', sans-serif;
 }
 
+#batch::after {
+  content: '';
+background-image: url(../public/Svg/bamboo-danny-allen-r.svg);
+position: absolute;
+left: 0;
+filter: url(#shaka) invert(0.5);
+width: 200px;
+height: 200px;
+/* background-repeat-x: no-repeat; */
+/* background: no-repeat; */
+top: 0;
+/*    fill: white;*/
+z-index: -2;
 
+}
+#batch::before {
+  content: '';
+background-image: url(../public/Svg/bamboo-danny-allen-r.svg);
+position: absolute;
+left: 0;
+filter:  invert(0.6);
+width: 200px;
+height: 200px;
+/* background-repeat-x: no-repeat; */
+/* background: no-repeat; */
+top: 0;
+/*    fill: white;*/
+z-index: -1;
+
+}
 
 body {
   background: #E7E7E7;

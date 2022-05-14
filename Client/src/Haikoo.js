@@ -122,23 +122,32 @@ const Haikoo = () => {
     var frames = 0;
     var rad = Math.PI / 180;
 
+    const requestRef = React.useRef();
+  
+
+    
+  React.useEffect(() => {
+    requestRef.current = requestAnimationFrame(AnimateBaseFrequency);
+    return () => cancelAnimationFrame(requestRef.current);
+  }, []);
+
 
     function AnimateBaseFrequency() {
+        
         //baseFrequency="0.01 .1"
         var bfx = 0.02;
         var bfy = 0.01;
-         frames += .25
+        frames += .25
         bfx += 0.002 * Math.cos(frames * rad);
         bfy += 0.01 * Math.sin(frames * rad);
 
         var bf = bfx.toString() + ' ' + bfy.toString();
         img.setAttributeNS(null, 'baseFrequency', bf);
 
-        window.requestAnimationFrame(AnimateBaseFrequency);
+        requestRef.current = requestAnimationFrame(AnimateBaseFrequency);
     }
 
-    window.requestAnimationFrame(AnimateBaseFrequency);
-
+   
     //function to print occurrence of character
     function printans(ans) {
         for (let [key, value] of ans) {
