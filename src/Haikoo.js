@@ -5,7 +5,7 @@ const Haikoo = () => {
 
 
     const [invitation , setInvitation] = React.useState(null)
-    // var invitation = null;
+   
         function initInvite() {
             const urlParams = new URLSearchParams(window.location.search);
             var blob = urlParams.get('invite');
@@ -20,7 +20,7 @@ const Haikoo = () => {
         initInvite();
         } , [])
 
-        // window.onload = initInvite;
+      
 
 
     var inventaire;
@@ -60,7 +60,7 @@ const Haikoo = () => {
         // inventaire[12].used = true;
 
         displayInventaire(inventaire);
-        playSound('')
+        playSound('/Audio/time-is-now-585.mp3');
         console.log(inventaire);
         document.getElementById("letterslist").classList.add("shaky");
 
@@ -94,33 +94,6 @@ const Haikoo = () => {
     }
 
 
-    // function updatebatch() {
-
-
-    //     var letters = makebatch(5).split('');
-    //     var str = '<div className="letlist">';
-    //     var lettersnum = letters.length;
-
-
-    //     letters.forEach(function (letter) {
-    //         str += '<h1 className="letter">' + letter + '</h1>';
-    //     });
-
-    //     str += '</div>';
-    //     document.getElementById("letterslist").innerHTML = str;
-    //     document.getElementById("startbutton").innerHTML = "Reset";
-    //     document.getElementById("letcount").innerHTML = lettersnum + " inspirations left";
-    //     document.getElementById("letterslist").classList.add("shaky");
-    //     setTimeout(() => {
-    //         document.getElementById("letterslist").classList.remove("shaky")
-    //     }, 500);
-    // }
-
-    // function lettercounter() {
-
-    //     var lettersnum = letters.length;
-
-    // }
     function submit() {
         document.getElementById("goalreach").innerHTML = Math.floor(document.getElementById("userinput").value.toString().replace(/ /g, "").replace(/,/g, "").replace(/\-/g, "").replace(/\;/g, "").replace(/\./g, "").replace(/\?/g, "").replace(/\!/g, "").length * 100 / 60) + "%";
 
@@ -198,7 +171,7 @@ const Haikoo = () => {
         for (var i = 0; i < lettersstock.length; i++) {
             if (letter == lettersstock[i].value && !lettersstock[i].used) {
                 lettersstock[i].used = true;
-                playSound('../public/Audio/when-604.mp3');
+                playSound('/Audio/when-604.mp3');
                 return true;
 
             }
@@ -249,7 +222,7 @@ const Haikoo = () => {
         console.log("correct lengthy:" + userinput.replace(/ /g, "").replace(/,/g, "").length);
 
         if (inventaire.length - userinput.replace(/ /g, "").replace(/,/g, "").replace(/;/g, "").length == 0) {
-            playSound('../public/Audio/accomplished-579.mp3');
+            playSound('/Audio/accomplished-579.mp3');
         }
 
         if (key != "Backspace") {
@@ -272,7 +245,7 @@ const Haikoo = () => {
 
                 if (!letteravailable) {
                     document.getElementById("userinput").value = document.getElementById("userinput").value.slice(0, -1);
-                    playSound('../public/Audio/clearly-602.mp3');
+                    playSound('/Audio/clearly-602.mp3');
                     userinput = document.getElementById("userinput").value;
                     userinputArray = userinput.toUpperCase().split('');
                 }
@@ -298,7 +271,7 @@ const Haikoo = () => {
         const key = event.key;
         if (key === "Backspace" && userinput.length > 0) {
 
-            playSound('../public/Audio/glitch-in-the-matrix-600.mp3');
+            playSound('/Audio/glitch-in-the-matrix-600.mp3');
             console.log("backspace used");
             console.log(userinputArray);
             console.log(inventaire);
