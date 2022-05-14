@@ -1,5 +1,5 @@
 import React from 'react';
-// import './index.css';
+
 
 const Haikoo = () => {
 
@@ -60,7 +60,7 @@ const Haikoo = () => {
         // inventaire[12].used = true;
 
         displayInventaire(inventaire);
-        playSound('/AUDIO/time-is-now-585.mp3')
+        playSound('')
         console.log(inventaire);
         document.getElementById("letterslist").classList.add("shaky");
 
@@ -198,7 +198,7 @@ const Haikoo = () => {
         for (var i = 0; i < lettersstock.length; i++) {
             if (letter == lettersstock[i].value && !lettersstock[i].used) {
                 lettersstock[i].used = true;
-                playSound('/AUDIO/when-604.mp3');
+                playSound('../public/Audio/when-604.mp3');
                 return true;
 
             }
@@ -249,7 +249,7 @@ const Haikoo = () => {
         console.log("correct lengthy:" + userinput.replace(/ /g, "").replace(/,/g, "").length);
 
         if (inventaire.length - userinput.replace(/ /g, "").replace(/,/g, "").replace(/;/g, "").length == 0) {
-            playSound('/AUDIO/accomplished-579.mp3');
+            playSound('../public/Audio/accomplished-579.mp3');
         }
 
         if (key != "Backspace") {
@@ -272,7 +272,7 @@ const Haikoo = () => {
 
                 if (!letteravailable) {
                     document.getElementById("userinput").value = document.getElementById("userinput").value.slice(0, -1);
-                    playSound('/AUDIO/clearly-602.mp3');
+                    playSound('../public/Audio/clearly-602.mp3');
                     userinput = document.getElementById("userinput").value;
                     userinputArray = userinput.toUpperCase().split('');
                 }
@@ -298,7 +298,7 @@ const Haikoo = () => {
         const key = event.key;
         if (key === "Backspace" && userinput.length > 0) {
 
-            playSound('/AUDIO/glitch-in-the-matrix-600.mp3');
+            playSound('../public/Audio/glitch-in-the-matrix-600.mp3');
             console.log("backspace used");
             console.log(userinputArray);
             console.log(inventaire);
