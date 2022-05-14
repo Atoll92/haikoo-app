@@ -332,8 +332,6 @@ const Haikoo = () => {
                     <input type="checkbox" id="dark" name="dark" onClick={darkmode} unchecked />
                     <label for="dark">Enable dark mode</label>
                 </div>
-
-
                 <h1 id="batch">Welcome to Haikoo</h1>
                 <p>Get inspired !</p>
                 <h1 id="letcount">Counter</h1>
