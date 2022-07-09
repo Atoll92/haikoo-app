@@ -56,7 +56,9 @@ button:hover {
     padding: 8vw;
     padding-top: 0;
     padding-bottom: 4vw;
-    width: 100vw;
+    padding-bottom: 4vw;
+    width: 80vw;
+    margin: auto;
     transition: all 0.3s ease-in-out;
 }
 

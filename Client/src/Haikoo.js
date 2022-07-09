@@ -322,23 +322,28 @@ const Haikoo = () => {
                 </div>
                 <div id="letterslist">
                 </div>
-                <button id="startbutton" onClick={init}>Start</button>
+              
 
                 <form action="" method="post" ><textarea name="haikoo" placeholder="Let your mind go for a stroll..." onKeyUp={count_occurs} onKeyDown={handle_delete} id="userinput">
 
                 </textarea>
 
-                    <button type="submit" name="button" value="Submit" id="submitbutton" onClick="{submit}">Submit for review</button>
 
                 </form>
+                
 
-
-                <p id="goalreach"></p>
-                <button id="submitbutton" onClick={share}>Share with a friend</button>
-                <button id="submitbutton" >Challenge a friend</button>
+                
+                
 
 
             </div>
+            <div className='bottom_controls'>
+                <button type="submit" name="button" value="Submit" id="submitbutton" onClick="{submit}">Submit for review</button>
+                <button id="submitbutton" onClick={share}>Share with a friend</button>
+                <button id="submitbutton" >Challenge a friend</button>
+                <button id="startbutton" onClick={init}>Start</button>
+                
+                </div>
 
             <svg>
                 <filter id="shaka">
@@ -360,3 +365,5 @@ const Haikoo = () => {
 };
 
 export default Haikoo;
+
+/* <p id="goalreach"></p> */
