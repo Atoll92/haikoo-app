@@ -311,6 +311,7 @@ const Haikoo = () => {
         <div>
             <div id="container" className="container">
                 <div className="checkboxcont">
+                <p id="goalreach"></p>
                     <input type="checkbox" id="dark" name="dark" onClick={darkmode} unchecked />
                     <label for="dark">Enable dark mode</label>
                 </div>
@@ -324,7 +325,9 @@ const Haikoo = () => {
                 </div>
               
 
-                <form action="" method="post" ><textarea name="haikoo" placeholder="Let your mind go for a stroll..." onKeyUp={count_occurs} onKeyDown={handle_delete} id="userinput">
+                <form action="" method="post" >
+                    
+                    <textarea name="haikoo" placeholder="Let your mind go for a stroll..." onKeyUp={count_occurs} onKeyDown={handle_delete} id="userinput">
 
                 </textarea>
 
@@ -366,4 +369,3 @@ const Haikoo = () => {
 
 export default Haikoo;
 
-/* <p id="goalreach"></p> */
