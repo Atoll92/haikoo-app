@@ -1,7 +1,14 @@
 import React from 'react';
+import axios from 'axios';
+import Login from './Login';
+import SignInScreen from './Login';
 
 
 const Haikoo = () => {
+
+
+    
+    
 
 
     const [invitation , setInvitation] = React.useState(null)
@@ -112,7 +119,27 @@ const Haikoo = () => {
         document.getElementById("popup_invite_link").innerHTML = "doublegeste.com/haikoo?invite=" + b64Data;
         document.getElementById("popup_invite").style.display = "block";
 
-        
+        async function updateAPI(note) { 
+            const response = await axios.post('https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app/Haikoos.json', note)
+            console.log(response)
+            console.log(response.data)
+            console.log("fetchingcalled")
+        }
+    
+        // Test data
+        const note = {
+            content: haikoo,
+            author: signature
+        }
+    
+
+        updateAPI(note);
+
+
+       
+       
+
+       
 
 
 
@@ -124,28 +151,55 @@ const Haikoo = () => {
 
     const requestRef = React.useRef();
   
-
+    const [fetched_haikoo, setFetchedHaikoo] = React.useState([]);
+    React.useEffect(() => {
+        fetchAPI();
+      }, []);
     
-  React.useEffect(() => {
-    requestRef.current = requestAnimationFrame(AnimateBaseFrequency);
-    return () => cancelAnimationFrame(requestRef.current);
-  }, []);
 
+     function fetchAPI() { 
 
-    function AnimateBaseFrequency() {
+       
+        const response =  axios.get('https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app/Haikoos.json').then(
+            (response) => {
+                console.log(response)
+                console.log(Object.values(response.data))
+                console.log("fetchApi" )
+                setFetchedHaikoo(Object.values(response.data));
+            }
+        )
         
-        //baseFrequency="0.01 .1"
-        var bfx = 0.02;
-        var bfy = 0.01;
-        frames += .25
-        bfx += 0.002 * Math.cos(frames * rad);
-        bfy += 0.01 * Math.sin(frames * rad);
-
-        var bf = bfx.toString() + ' ' + bfy.toString();
-        img.setAttributeNS(null, 'baseFrequency', bf);
-
-        requestRef.current = requestAnimationFrame(AnimateBaseFrequency);
+      
     }
+
+    // fetched data
+    // const haikoo_batch = {
+    //     content: haikoo,
+    //     author: signature
+    // }
+    
+
+    // Animation SVG
+//   React.useEffect(() => {
+//     requestRef.current = requestAnimationFrame(AnimateBaseFrequency);
+//     return () => cancelAnimationFrame(requestRef.current);
+//   }, []);
+
+
+    // function AnimateBaseFrequency() {
+        
+    //     //baseFrequency="0.01 .1"
+    //     var bfx = 0.02;
+    //     var bfy = 0.01;
+    //     frames += .25
+    //     bfx += 0.002 * Math.cos(frames * rad);
+    //     bfy += 0.01 * Math.sin(frames * rad);
+
+    //     var bf = bfx.toString() + ' ' + bfy.toString();
+    //     img.setAttributeNS(null, 'baseFrequency', bf);
+
+    //     requestRef.current = requestAnimationFrame(AnimateBaseFrequency);
+    // }
 
    
     //function to print occurrence of character
@@ -292,6 +346,8 @@ const Haikoo = () => {
 
         console.log("keydown finish");
     }
+
+
     function darkmode() {
         var dark = document.querySelector('#dark');
         if (dark.checked){
@@ -309,7 +365,10 @@ const Haikoo = () => {
 
     return (
         <div>
+            
             <div id="container" className="container">
+                <Login/>
+                <SignInScreen/>
                 <div className="checkboxcont">
                 <p id="goalreach"></p>
                     <input type="checkbox" id="dark" name="dark" onClick={darkmode} unchecked />
@@ -318,6 +377,11 @@ const Haikoo = () => {
                 <h1 id="batch">Welcome to Haikoo</h1>
                 <p>Get inspired !</p>
                 <h1 id="letcount">Counter</h1>
+                {/* <p>{fetched_haikoo[0].content}</p> */}
+                <li id="haikoopast">{fetched_haikoo.map((haikoo, i) =>
+                    <ul key={i}>{haikoo.content} . {haikoo.author}</ul>
+
+                )}</li>
                 <div id="popup_invite">
                     <p id="popup_invite_link"></p>
                 </div>
