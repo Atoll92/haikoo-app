@@ -41,6 +41,19 @@ z-index: -1;
 
 }
 
+#closebutton {
+  width: 5vw;
+    filter: invert(1);
+    right: 1vw;
+    top: 1vw;
+    position: fixed;
+    cursor: pointer;
+}
+
+#closebutton:hover {
+  filter: url(#shaky);
+}
+
 body {
   background: #E7E7E7;
   margin: 0;
@@ -53,12 +66,14 @@ body {
 
 #batch {
   word-break: break-all;
-  margin: 5vw;
-  font-weight: 100;
+  margin: 1vw 5vw;
+  margin-top: -3vw;
+  margin-bottom: 3vw;
+ 
   font-family: 'Inter', sans-serif;
 }
 
-button {
+.bottom_controls button, .signout button {
   margin: auto;
   display: block;
   background: transparent !important;
@@ -70,13 +85,28 @@ button {
   cursor: pointer;
 
 }
+.bottom_controls button:active, .signout button:active {
+  
+  background: blue !important;
+  
 
-button:focus {
+}
+.signout {
+display: flex;
+    background: white;
+    filter: invert(1);
+    height: 60px;
+    align-items: center;
+    margin: auto;
+    
+}
+
+.bottom_controls button:focus , .signout button:focus {
   /*  outline-offset: -6px;*/
   outline: none !important;
 }
 
-button:hover {
+.bottom_controls button:hover  , .signout button:hover{
   margin: auto;
   display: block;
   background: transparent !important;
@@ -85,7 +115,10 @@ button:hover {
   border: none !important;
 
 }
-
+.invisible {
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
 .letter {
   /*background: yellow;*/
   margin: 1vw;
@@ -136,7 +169,7 @@ h1 {
 #letcount {
   font-size: 2vw;
   margin-left: 78vw;
-  margin-top: -5vw;
+  /* margin-top: -5vw; */
   margin-bottom: 2vw;
 }
 
@@ -150,7 +183,14 @@ h1 {
   filter: drop-shadow(0 0 2px white);
 }
 
-
+#userview {
+  display: none;
+  width: 100vw;
+  min-height:100vh ;
+  position: fixed;
+  background: white;
+ 
+}
 textarea {
   width: 80%;
   display: block;
@@ -185,10 +225,50 @@ textarea:focus {
 #haikoopast ul {
     background-color: white;
     padding: 1vw;
+    
     border-radius: 1em;
     border-color: black;
     border-style: solid;
     border-width: 2px;
+    width: 80vw;
+    display: block;
+    margin: 2vw auto;
+    font-size: large;
+}
+
+#haikoopast ul  i {
+  color:#052a53;
+}
+
+#chosen_haikoo i {
+  color:#052a53;
+}
+#chosen_haikoo {
+  background-color: rgba(255, 255, 255, 0.713);
+  padding: 0.5vw;
+    border-radius: 1em;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    width: 75vw;
+}
+#firebaseui_container {
+  width: fit-content;
+  margin-left: 81vw;
+}
+#haikoopast {
+  display: none;
+  height: 200vh;
+  /* padding: 20vw; */
+  width: 100vw;
+  z-index: 99;
+  position: absolute;
+  top: -17px;
+  background-color: #b5b3b3;
+}
+
+#goalreach {
+  color: burlywood;
 }
 
 .bottom_controls {
@@ -198,4 +278,13 @@ textarea:focus {
   background-color: #C8C8C8;
   position: fixed;
   bottom: 0;
+}
+
+.startbutton_init {
+  display: block;
+    margin: auto;
+    position: absolute;
+    bottom: 25vh;
+    margin-left: 37.5vw;
+  
 }

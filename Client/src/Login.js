@@ -5,6 +5,9 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
+import * as firebaseui from 'firebaseui'
+import 'firebaseui/dist/firebaseui.css'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
 // Configure Firebase.
@@ -24,9 +27,26 @@ const uiConfig = {
   // We will display Google and Facebook as auth providers.
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+   firebase.auth.EmailAuthProvider.PROVIDER_ID
+      
     
   ],
 };
+
+
+
+// const auth = getAuth();
+// signInWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   });
+
 
 function SignInScreen() {
   return (

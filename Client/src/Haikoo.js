@@ -1,7 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import Login from './Login';
+import firebase from 'firebase/compat/app';
+import * as firebaseui from 'firebaseui'
+import 'firebaseui/dist/firebaseui.css'
 import SignInScreen from './Login';
+import Loginalt from './Loginalt';
+import UserView from './UserView';
 
 
 const Haikoo = () => {
@@ -70,6 +75,9 @@ const Haikoo = () => {
         playSound('/Audio/time-is-now-585.mp3');
         console.log(inventaire);
         document.getElementById("letterslist").classList.add("shaky");
+        document.getElementById("chosen_haikoo").classList.add("invisible");
+        
+      
 
 
 
@@ -96,6 +104,7 @@ const Haikoo = () => {
         document.getElementById("letterslist").innerHTML = str;
 
         document.getElementById("startbutton").innerHTML = "Reset";
+        document.getElementById("startbutton").classList.remove("startbutton_init");
 
 
     }
@@ -116,7 +125,7 @@ const Haikoo = () => {
         var shared_data = { signature: signature, haikoo: haikoo, batch: batch };
 
         var b64Data = btoa(JSON.stringify(shared_data));
-        document.getElementById("popup_invite_link").innerHTML = "doublegeste.com/haikoo?invite=" + b64Data;
+        document.getElementById("popup_invite_link").innerHTML = "Your haikoo has been succesfully posted ! " ;
         document.getElementById("popup_invite").style.display = "block";
 
         async function updateAPI(note) { 
@@ -152,26 +161,46 @@ const Haikoo = () => {
     const requestRef = React.useRef();
   
     const [fetched_haikoo, setFetchedHaikoo] = React.useState([]);
+    const [selected_haikoo, setSelectedHaikoo] = React.useState({author:"none", content:'not yet loaded'});
+
     React.useEffect(() => {
         fetchAPI();
       }, []);
     
+
+    //   var selected = {author:"none", content:'not yet loaded'};
 
      function fetchAPI() { 
 
        
         const response =  axios.get('https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app/Haikoos.json').then(
             (response) => {
+                let haikoo_array = Object.values(response.data);
                 console.log(response)
-                console.log(Object.values(response.data))
+                console.log(haikoo_array)
                 console.log("fetchApi" )
-                setFetchedHaikoo(Object.values(response.data));
+                let rnd = Math.random() * haikoo_array.length 
+                let rounded_rnd = Math.floor(rnd);
+                setFetchedHaikoo(haikoo_array);
+                setSelectedHaikoo(haikoo_array[rounded_rnd])
             }
         )
+
         
+        // const shuffled = Object.values(response.data).sort(() => 0.5 - Math.random());
+        // console.log(shuffled)
+        // selected = shuffled[0];
+   
+       
       
     }
 
+    function show_haikoos() {
+        document.getElementById("haikoopast").style.display = "block";
+
+    }
+   
+   
     // fetched data
     // const haikoo_batch = {
     //     content: haikoo,
@@ -362,40 +391,60 @@ const Haikoo = () => {
             document.querySelector('body').style.filter = "invert()";
         }
     }
-
+    function show_userview() {
+        document.getElementById("userview").style.display = document.getElementById("userview").style.display == "block" ? "none" : "block" ;
+        
+    }
+    function hideuserview() {
+        document.getElementById("userview").style.display = document.getElementById("userview").style.display == "block" ? "none" : "none" ;
+        
+    }
+    function hide_haikoopast() {
+        document.getElementById("haikoopast").style.display = "none";
+    }
     return (
         <div>
             
             <div id="container" className="container">
-                <Login/>
-                <SignInScreen/>
-                <div className="checkboxcont">
-                <p id="goalreach"></p>
-                    <input type="checkbox" id="dark" name="dark" onClick={darkmode} unchecked />
-                    <label for="dark">Enable dark mode</label>
-                </div>
+                {/* <Login/> */}
+                <Loginalt show_userview={show_userview} hideuserview={hideuserview}/>
+                <UserView/>
+                {/* <SignInScreen/>     */}
+                   <div className="checkboxcont">
+                   
+               
+                   <input type="checkbox" id="dark" name="dark" onClick={darkmode} unchecked />
+                   <label for="dark">Enable dark mode</label>
+               </div>
                 <h1 id="batch">Welcome to Haikoo</h1>
-                <p>Get inspired !</p>
+         
+                <p id="chosen_haikoo"><strong>Random haikoo :</strong> "{selected_haikoo.content}" by <i>{selected_haikoo.author}</i> </p>
+               
+                
+                {/* <p>Get inspired !</p> */}
                 <h1 id="letcount">Counter</h1>
-                {/* <p>{fetched_haikoo[0].content}</p> */}
-                <li id="haikoopast">{fetched_haikoo.map((haikoo, i) =>
-                    <ul key={i}>{haikoo.content} . {haikoo.author}</ul>
+                
+                <li id="haikoopast"><img onClick={hide_haikoopast} id="closebutton" src="/Svg/close-button-svgrepo-com.svg"/>{fetched_haikoo.map((haikoo, i) =>
+                    <ul key={i}>"{haikoo.content}"" by <i>{haikoo.author}</i></ul>
 
                 )}</li>
+
+                {/* <h1>{selected.content}</h1> */}
                 <div id="popup_invite">
+                
                     <p id="popup_invite_link"></p>
                 </div>
                 <div id="letterslist">
                 </div>
               
-
+                <p id="goalreach"></p>
                 <form action="" method="post" >
                     
                     <textarea name="haikoo" placeholder="Let your mind go for a stroll..." onKeyUp={count_occurs} onKeyDown={handle_delete} id="userinput">
 
                 </textarea>
 
-
+                    {/* <button id="startbutton-main"  onClick={init}>Start</button> */}
                 </form>
                 
 
@@ -405,10 +454,11 @@ const Haikoo = () => {
 
             </div>
             <div className='bottom_controls'>
-                <button type="submit" name="button" value="Submit" id="submitbutton" onClick="{submit}">Submit for review</button>
-                <button id="submitbutton" onClick={share}>Share with a friend</button>
+            <button id="submitbutton" onClick={share}>Publish your Haikoo ! </button>
+                <button type="submit" name="button" value="Submit" id="submitbutton" onClick={show_haikoos}>Discover other haikoos</button>
+                
                 <button id="submitbutton" >Challenge a friend</button>
-                <button id="startbutton" onClick={init}>Start</button>
+                <button id="startbutton"  onClick={init}>Start</button>
                 
                 </div>
 
