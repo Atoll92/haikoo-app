@@ -9,10 +9,30 @@ import Loginalt from './Loginalt';
 import UserView from './UserView';
 
 
+// import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth();
+
+
+
+
 const Haikoo = () => {
 
 
-    
+    const [isSignedIn, setIsSignedIn] = React.useState(false); // Local signed-in state.
+
+    // Listen to the Firebase Auth state and set the local state.
+    React.useEffect(() => {
+      const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
+        setIsSignedIn(!!user);
+      });
+      return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+    }, []);
+
     
 
 
@@ -121,7 +141,12 @@ const Haikoo = () => {
     function share() {
         var batch = inventaire.map(obj => obj.value).join('');
         var haikoo = document.getElementById("userinput").value;
-        var signature = window.prompt("signez votre haikoo");
+        var signature = "";
+        if(!isSignedIn){
+            signature = window.prompt("signez votre haikoo");
+        } else {
+            signature = firebase.auth().currentUser.displayName;
+        }
         var shared_data = { signature: signature, haikoo: haikoo, batch: batch };
 
         var b64Data = btoa(JSON.stringify(shared_data));
@@ -162,6 +187,7 @@ const Haikoo = () => {
   
     const [fetched_haikoo, setFetchedHaikoo] = React.useState([]);
     const [selected_haikoo, setSelectedHaikoo] = React.useState({author:"none", content:'not yet loaded'});
+   
 
     React.useEffect(() => {
         fetchAPI();
@@ -176,6 +202,7 @@ const Haikoo = () => {
         const response =  axios.get('https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app/Haikoos.json').then(
             (response) => {
                 let haikoo_array = Object.values(response.data);
+                
                 console.log(response)
                 console.log(haikoo_array)
                 console.log("fetchApi" )
