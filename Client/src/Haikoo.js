@@ -5,15 +5,18 @@ import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 import SignInScreen from './Login';
-import Loginalt from './Loginalt';
-import UserView from './UserView';
+import Loginalt from './Routes/Loginalt';
+import UserView from './Routes/UserView';
+import db from './FireStoreDB';
 
 
-// import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+
 
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Link } from 'react-router-dom';
+import SelectHaikoo from './SelectHaikoo';
+
 
 const auth = getAuth();
 
@@ -21,6 +24,8 @@ const auth = getAuth();
 
 
 const Haikoo = () => {
+
+
 
 
     const [isSignedIn, setIsSignedIn] = React.useState(false); // Local signed-in state.
@@ -142,19 +147,26 @@ const Haikoo = () => {
         var batch = inventaire.map(obj => obj.value).join('');
         var haikoo = document.getElementById("userinput").value;
         var signature = "";
+        var title = "";
+        var social_score = 0;
+        var score = Math.floor(document.getElementById("userinput").value.toString().replace(/ /g, "").replace(/,/g, "").replace(/\-/g, "").replace(/\;/g, "").replace(/\./g, "").replace(/\?/g, "").replace(/\!/g, "").length * 100 / 60) + "%" ;
         if(!isSignedIn){
             signature = window.prompt("signez votre haikoo");
         } else {
             signature = firebase.auth().currentUser.displayName;
+            title = window.prompt("donnez un titre à votre haikoo");
         }
-        var shared_data = { signature: signature, haikoo: haikoo, batch: batch };
+        var shared_data = { signature: signature, haikoo: haikoo, batch: batch, title: title , score:score, social_score : social_score};
 
         var b64Data = btoa(JSON.stringify(shared_data));
         document.getElementById("popup_invite_link").innerHTML = "Your haikoo has been succesfully posted ! " ;
         document.getElementById("popup_invite").style.display = "block";
 
         async function updateAPI(note) { 
-            const response = await axios.post('https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app/Haikoos.json', note)
+
+            const idToken = await firebase.auth().currentUser.getIdToken(true);
+
+            const response = await axios.post('https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app/Haikoos.json?auth=' + idToken, note)
             console.log(response)
             console.log(response.data)
             console.log("fetchingcalled")
@@ -163,7 +175,10 @@ const Haikoo = () => {
         // Test data
         const note = {
             content: haikoo,
-            author: signature
+            author: signature,
+            title: title,
+            score: score,
+            social_score:0,
         }
     
 
@@ -179,83 +194,8 @@ const Haikoo = () => {
 
     }
 
-    var img = document.querySelector("#shaka feTurbulence");
-    var frames = 0;
-    var rad = Math.PI / 180;
 
-    const requestRef = React.useRef();
   
-    const [fetched_haikoo, setFetchedHaikoo] = React.useState([]);
-    const [selected_haikoo, setSelectedHaikoo] = React.useState({author:"none", content:'not yet loaded'});
-   
-
-    React.useEffect(() => {
-        fetchAPI();
-      }, []);
-    
-
-    //   var selected = {author:"none", content:'not yet loaded'};
-
-     function fetchAPI() { 
-
-       
-        const response =  axios.get('https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app/Haikoos.json').then(
-            (response) => {
-                let haikoo_array = Object.values(response.data);
-                
-                console.log(response)
-                console.log(haikoo_array)
-                console.log("fetchApi" )
-                let rnd = Math.random() * haikoo_array.length 
-                let rounded_rnd = Math.floor(rnd);
-                setFetchedHaikoo(haikoo_array);
-                setSelectedHaikoo(haikoo_array[rounded_rnd])
-            }
-        )
-
-        
-        // const shuffled = Object.values(response.data).sort(() => 0.5 - Math.random());
-        // console.log(shuffled)
-        // selected = shuffled[0];
-   
-       
-      
-    }
-
-    function show_haikoos() {
-        document.getElementById("haikoopast").style.display = "block";
-
-    }
-   
-   
-    // fetched data
-    // const haikoo_batch = {
-    //     content: haikoo,
-    //     author: signature
-    // }
-    
-
-    // Animation SVG
-//   React.useEffect(() => {
-//     requestRef.current = requestAnimationFrame(AnimateBaseFrequency);
-//     return () => cancelAnimationFrame(requestRef.current);
-//   }, []);
-
-
-    // function AnimateBaseFrequency() {
-        
-    //     //baseFrequency="0.01 .1"
-    //     var bfx = 0.02;
-    //     var bfy = 0.01;
-    //     frames += .25
-    //     bfx += 0.002 * Math.cos(frames * rad);
-    //     bfy += 0.01 * Math.sin(frames * rad);
-
-    //     var bf = bfx.toString() + ' ' + bfy.toString();
-    //     img.setAttributeNS(null, 'baseFrequency', bf);
-
-    //     requestRef.current = requestAnimationFrame(AnimateBaseFrequency);
-    // }
 
    
     //function to print occurrence of character
@@ -433,10 +373,9 @@ const Haikoo = () => {
         <div>
             
             <div id="container" className="container">
-                {/* <Login/> */}
+           
                 <Loginalt show_userview={show_userview} hideuserview={hideuserview}/>
-                <UserView/>
-                {/* <SignInScreen/>     */}
+               
                    <div className="checkboxcont">
                    
                
@@ -445,18 +384,12 @@ const Haikoo = () => {
                </div>
                 <h1 id="batch">Welcome to Haikoo</h1>
          
-                <p id="chosen_haikoo"><strong>Random haikoo :</strong> "{selected_haikoo.content}" by <i>{selected_haikoo.author}</i> </p>
-               
+               <SelectHaikoo/>
                 
-                {/* <p>Get inspired !</p> */}
                 <h1 id="letcount">Counter</h1>
+
                 
-                <li id="haikoopast"><img onClick={hide_haikoopast} id="closebutton" src="/Svg/close-button-svgrepo-com.svg"/>{fetched_haikoo.map((haikoo, i) =>
-                    <ul key={i}>"{haikoo.content}"" by <i>{haikoo.author}</i></ul>
-
-                )}</li>
-
-                {/* <h1>{selected.content}</h1> */}
+               
                 <div id="popup_invite">
                 
                     <p id="popup_invite_link"></p>
@@ -482,7 +415,7 @@ const Haikoo = () => {
             </div>
             <div className='bottom_controls'>
             <button id="submitbutton" onClick={share}>Publish your Haikoo ! </button>
-                <button type="submit" name="button" value="Submit" id="submitbutton" onClick={show_haikoos}>Discover other haikoos</button>
+               <Link to="/explore"><button type="submit" name="button" value="Submit" id="submitbutton" >Discover other haikoos</button></Link> 
                 
                 <button id="submitbutton" >Challenge a friend</button>
                 <button id="startbutton"  onClick={init}>Start</button>

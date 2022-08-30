@@ -98,6 +98,7 @@ display: flex;
     height: 60px;
     align-items: center;
     margin: auto;
+    width: 100vw;
     
 }
 
@@ -184,11 +185,13 @@ h1 {
 }
 
 #userview {
-  display: none;
+  display: block;
   width: 100vw;
   min-height:100vh ;
-  position: fixed;
+  /* position: fixed; */
   background: white;
+  flex-direction: column;
+  display: flex;
  
 }
 textarea {
@@ -230,18 +233,99 @@ textarea:focus {
     border-color: black;
     border-style: solid;
     border-width: 2px;
-    width: 80vw;
-    display: block;
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 2vw auto;
     font-size: large;
+    flex-basis: 23.3333%;
+    height:17vw;
+    cursor: pointer;
+  
+}
+.haikoo_card_selected {
+  filter: drop-shadow(0 3px 6px
+	 rgba(0, 0, 0, 0.16))
+	 drop-shadow(0 3px 6px
+	 rgba(0, 0, 0, 0.1));
+	transition: all 0.3s ease-in-out;
+  transform: scale(-1) rotateX(180deg) rotateY(180deg);
+  perspective: 1000px;
+  transform-origin: 50% 50%;
+  flex-grow: 0.3;
+  transform-style: preserve-3d;
+  z-index: 99;
+
 }
 
-#haikoopast ul  i {
-  color:#052a53;
+.haikoo_card_selected .title_haikoo {
+ background-color: #91b894;
+ transition: all 0.3s ease-in-out;
 }
+
+.haikoo_cards {
+  filter: drop-shadow(0 3px 6px
+	 rgba(0, 0, 0, 0.16))
+	 drop-shadow(0 3px 6px
+	 rgba(0, 0, 0, 0.1));
+   transition: all 0.3s;
+
+}
+.haikoo_cards:hover {
+	filter: drop-shadow(0 14px 28px
+	 rgba(0, 0, 0, 0.25))
+	 drop-shadow(0 10px 10px
+ rgba(0, 0, 0, 0.1));
+}
+
+
+#haikoopast ul  i {
+  color:#2869b1;
+  text-align: right;
+}
+
+
+#haikoopast ul:nth-of-type(2n)  i {
+  color:#7f387a;
+}
+#haikoopast ul:nth-of-type(3n)   i{
+  color:#ecb756;
+}
+#haikoopast ul:nth-of-type(4n)  i {
+  color:#931618;
+}
+#haikoopast ul:nth-of-type(5n)  i {
+  color:#0d057d;
+}
+#haikoopast ul:nth-of-type(6n)  i {
+  color:#2e984c;
+}
+
 
 #chosen_haikoo i {
   color:#052a53;
+}
+
+.title_haikoo {
+  background-color: black;
+  color: white;
+  margin-top: -1vw;
+  /* width: 100%; */
+  margin-left: -1vw;
+  margin-right: -1vw;
+  border-radius: 11px 11px 0 0;
+  text-align: center;
+  font-size: 1.5vw;
+  padding: 1vw;
+}
+
+.haikoo_text {
+  text-align: center;
+  border-bottom: solid 1 px black;
+  padding: 3vw;
+  margin: auto;
+  /* border-bottom: solid 1px black; */
 }
 #chosen_haikoo {
   background-color: rgba(255, 255, 255, 0.713);
@@ -257,14 +341,17 @@ textarea:focus {
   margin-left: 81vw;
 }
 #haikoopast {
-  display: none;
-  height: 200vh;
-  /* padding: 20vw; */
-  width: 100vw;
-  z-index: 99;
-  position: absolute;
-  top: -17px;
+ 
+  height: auto;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  width: 96vw;
+  /* z-index: 99; */
+  /* position: absolute; */
+  /* top: -17px; */
   background-color: #b5b3b3;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #goalreach {
@@ -287,4 +374,38 @@ textarea:focus {
     bottom: 25vh;
     margin-left: 37.5vw;
   
+}
+
+.Myhaikoos {
+  margin: auto;
+  /* display: flex; */
+  border: 2px black solid;
+  border-radius: 1em;
+  width: 80vw;
+  text-align: center;
+}
+
+#fixed_head_count {
+  position: fixed;
+  background: #8593ff;
+  width: 100vw;
+  color: white;
+  /* opacity: 0.6; */
+  display: flex;
+  margin: auto;
+  /* align-items: initial; */
+  z-index: 99;
+  height: fit-content;  
+  height: 30px;
+}
+#fixed_head_count p {
+ margin: auto;
+}
+
+#technical_score {
+ 
+  position: absolute;
+    color: #6b7a64;
+    /* bottom: 0; */
+    right: 10px;
 }

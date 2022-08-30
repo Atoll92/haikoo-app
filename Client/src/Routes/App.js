@@ -1,8 +1,8 @@
 
-import './index.css';
-import './App.css';
+import '../index.css';
+import '../App.css';
 
-import Haikoo from './Haikoo';
+import Haikoo from '../Haikoo';
 
 
 function App() {
@@ -22,3 +22,5 @@ function App() {
 }
 
       export default App;
+
+   

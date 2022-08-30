@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-
+import { Link } from 'react-router-dom';
 
 // Configure Firebase.
-const config = {
-    apiKey: 'AIzaSyBTh2cWOzmY8wqrqeS5y-uuhnzkG115hGE',
-    authDomain: 'haikoo-bc326.firebaseapp.com',
-  // ...
-};
-firebase.initializeApp(config);
+// const config = {
+//   apiKey: "AIzaSyBTh2cWOzmY8wqrqeS5y-uuhnzkG115hGE",
+//   authDomain: 'haikoo-bc326.firebaseapp.com',
+//   projectId: "haikoo-bc326",
+//   storageBucket: "haikoo-bc326.appspot.com",
+//   // ...
+// };
+// firebase.initializeApp(config);
+// const db = firebase.firestore();
+  
+
 
 // Configure FirebaseUI.
 const uiConfig = {
@@ -52,8 +57,8 @@ function Loginalt(props) {
     <div className='signout'>
       
       <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-      <button onClick={props.show_userview}>My Account</button>
-     <button onClick={props.hideuserview}><a onClick={() => firebase.auth().signOut()}>Sign-out</a></button> 
+     <Link to="/account"> <button onClick={props.show_userview}>My Account</button></Link>
+     <Link to="/"><button onClick={props.hideuserview}><a onClick={() => firebase.auth().signOut()}>Sign-out</a></button> </Link>
     </div>
   );
 }
