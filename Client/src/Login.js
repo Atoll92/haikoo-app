@@ -4,17 +4,23 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+// import firebase from 'firebase/compat/app';
 
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
+
 // Configure Firebase.
 const config = {
-  apiKey: 'AIzaSyBTh2cWOzmY8wqrqeS5y-uuhnzkG115hGE',
-  authDomain: 'haikoo-bc326.firebaseapp.com',
-  // ...
+  apiKey: "AIzaSyBTh2cWOzmY8wqrqeS5y-uuhnzkG115hGE",
+  authDomain: "haikoo-bc326.firebaseapp.com",
+  databaseURL: "https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "haikoo-bc326",
+  storageBucket: "haikoo-bc326.appspot.com",
+  messagingSenderId: "784052480580",
+  appId: "1:784052480580:web:9a9e5e50cb8df5def9ea11"
 };
 firebase.initializeApp(config);
 
@@ -35,17 +41,6 @@ const uiConfig = {
 
 
 
-// const auth = getAuth();
-// signInWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     // Signed in 
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//   });
 
 
 function SignInScreen() {

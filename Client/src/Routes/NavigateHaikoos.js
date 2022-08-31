@@ -5,11 +5,27 @@ import { useState } from 'react';
 import {useSpring, animated} from 'react-spring'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import { db } from '../firebase';
 
 import { getDatabase, ref, set } from "firebase/database";
+import { push } from 'firebase/database';
+import { child } from 'firebase/database';
+import { update } from 'firebase/database';
+import  'firebase/database';
+import { Auth, getAuth } from 'firebase/auth';
+import { Database } from 'firebase/database';
+import { DatabaseReference } from 'firebase/database';
+import { auth } from '../firebase';
+import { getApps } from 'firebase/app'
+
+
+
+
 
 
 const NavigateHaikoos = () => {
+
+    console.log(getApps())
 
     // const [selected, setSelected] = useState(false);
 
@@ -26,7 +42,7 @@ const SelectHaikoo = (HaikooId = null) => {
         setSelected({ ...selected, [HaikooId]: false });
         console.log("unselect")
         setCount(count - 1)
-        UpdateSocialScore()
+       
         console.log([HaikooId])
         console.log(HaikooId.key)
         // var new_social_score = [HaikooId].social_score + 1;
@@ -39,6 +55,7 @@ const SelectHaikoo = (HaikooId = null) => {
         playSound('/Audio/when-604.mp3')
         setSelected({ ...selected, [HaikooId]: !selected[HaikooId] });
         setCount(count + 1)
+        UpdateSocialScore()
 
         
         
@@ -65,16 +82,93 @@ const SelectHaikoo = (HaikooId = null) => {
     //     }
 
  
+    // const db = getDatabase(firebase);
+    // function writeNewPost(uid, username, picture, title, body) {
+    //     const db = getDatabase();
+      
+    //     // A post entry.
+    //     const postData = {
+    //       author: username,
+    //       uid: uid,
+    //       body: body,
+    //       title: title,
+    //       starCount: 0,
+    //       authorPic: picture
+    //     };
+      
+        // Get a key for a new Post.
+        // const newPostKey = push(child(ref(db), 'posts')).key;
+      
+        // // Write the new post's data simultaneously in the posts list and the user's post list.
+        // const updates = {};
+        // updates['/posts/' + newPostKey] = postData;
+        // updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+      
+        // return update(ref(db), updates);
+    //   }
 
-    function UpdateSocialScore(social_score) {
-      const db = getDatabase();
-      set(ref(db, 'haikoos/'+ "-NAgK4BiD52WEXKOVFGV" ), {
-        social_score: social_score,
+      function UpdateSocialScore(author,social_score) {
+
+       
+//         var rootRef = firebase.database().ref();
+// rootRef.once("value")
+//   .then(function(snapshot) {
+//     var key = snapshot.key; // null
+//     var childKey = snapshot.child("Haikoos/").key; // "ada"
+//     console.log("key:" + key)
+//     console.log("Childkey:" + childKey)
+//   });
+
+
+       
+// const db = getDatabase();
+
+
+// var HaikooRef = firebase.database().ref("Haikoos/");
+// var key = HaikooRef.key;
+// console.log(HaikooRef)
+const auth = getAuth(firebase);
+const db = getDatabase(firebase);
+const HaikooRef = ref(db, 'Haikoos/' );
+console.log(HaikooRef)
+
+    //     const postdata = {
+    //         author: author,
+          
+    //         social_score: social_score
+    //       };
         
-      });
-    }
+    //     const selectedHaikoo = get(child(ref(db), 'Haikoos')).key;
+    //     console.log(selectedHaikoo)
+    //     const updates = {};
+    //     updates['/Haikoos/' + selectedHaikoo ] = postdata;
+     
+    //   console.log(selectedHaikoo)
+    //     return update(ref(db), updates);
+      }
+
+    // function UpdateSocialScore(social_score) {
+    //   const db = getDatabase();
+    //   const selectedHaikoo = push(child(ref(db), 'Haikoos')).key;
+    //   set(ref(db, 'Haikoos/ ' + selectedHaikoo ), {
+    //     social_score: 2,
+        
+    //   });
+    // }
+
+    //   firebase
+    // .database()
+    // .ref('Haikoos/')
+    // .on('value', (data) => {
+    //   var obj = data.val();
+    //   Object.keys(obj).forEach((key) => {
+    //     console.log('key: ' + key);
+    //     console.log('author: ' + obj[key].author);
+        
+    //   });
+    // });
+    
    
-//     const db = getDatabase();
 
 //     // A post entry.
 //     const postData = {
@@ -120,8 +214,11 @@ const playSound = (url) => {
             ).then(
             (response) => {
                 let haikoo_array = Object.values(response.data);
+                // let haikoo_ids = Object.keys(response.data);
+                // for(var i=0;i<haikoo_array.length;i++){
+                //     haikoo_array[i].id = haikoo_ids[i]
+                // }
                 
-                console.log(response)
                 console.log(haikoo_array)
                 console.log("fetchApi" )
                 let rnd = Math.random() * haikoo_array.length 

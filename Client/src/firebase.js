@@ -1,6 +1,15 @@
-import firebase from 'firebase/compat/app';
-import { initializeApp } from "firebase/app";
+// import firebase from 'firebase/compat/app';
+
 import { getAuth } from 'firebase/auth';
+import { getDatabase } from 'firebase/database';
+import { initializeApp } from 'firebase/app'
+
+
+// const app = initializeApp({ ...firebaseConfig })
+
+// const auth = getAuth(app)
+// const firestore = getFirestore(app)
+// other Firebase services
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -13,14 +22,21 @@ var firebaseConfig = {
   appId: "1:784052480580:web:9a9e5e50cb8df5def9ea11"
 };
   // Initialize Firebase
-  // firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 // export Firebase so it can be used elsewhere 
-//  const Firebase = firebase.initializeApp(firebaseConfig);
  const firebase = initializeApp(firebaseConfig);
+//  const firebase = initializeApp(firebaseConfig);
+const auth = () => getAuth(firebase);
 
+
+ const db = () => getDatabase(firebase)
 
  export default firebase;
 // export default Firebase;
+
+
+
+  export { db , auth}
 
 
 // import { initializeApp } from "firebase/app";
