@@ -3,6 +3,8 @@ import { useState } from "react";
 import { animated } from "react-spring";
 import { getDatabase, ref, onValue, runTransaction} from "firebase/database";
 import { getApps } from "firebase/app";
+// import FavStar from "../Svg/favorite-star-svgrepo-com.svg"
+
 
 const NavigateHaikoos = () => {
   console.log(getApps());
@@ -15,6 +17,7 @@ const NavigateHaikoos = () => {
       setSelected({ ...selected, [HaikooId]: false });
       console.log("unselect");
       setCount(count - 1);
+      UpdateSocialScoreDown(trueHaikooId);
 
       console.log([HaikooId]);
       console.log(HaikooId.key);
@@ -58,23 +61,52 @@ const NavigateHaikoos = () => {
     onValue(haikoos, (snapshot) => {
         console.log("got value")
         const data = snapshot.val();
+       
         let haikoo_array = Object.values(data);
+        // let randomId1 = Math.floor(Math.random() * haikoo_array.length) 
+        // let randomId2 = Math.floor(Math.random() * haikoo_array.length) 
+        // while(randomId1 === randomId2){
+        //   randomId2 = Math.floor(Math.random() * haikoo_array.length) 
+        // }
+        //let HaikooDuo = Math.floor(random);
         let haikoo_ids = Object.keys(data);
         for (var i = 0; i < haikoo_array.length; i++) {
           haikoo_array[i].id = haikoo_ids[i];
         }
 
-        console.log(haikoo_array);
+        // var twoRandomHaikoo = [
+        //   haikoo_array[randomId1],haikoo_array[randomId2],
+        // ]
+
+        // console.log(twoRandomHaikoo);
         setFetchedHaikoo(haikoo_array);
     });
   }
 
   const [count, setCount] = useState(0);
 
-  function UnselectHaikoo() {
+  function UpdateSocialScoreDown(HaikooId) {
+
+    const db = getDatabase();
+    const haikooref = ref(db, 'Haikoos/' + HaikooId + '/')
+
+    runTransaction(haikooref, (haikoo) => {
+        if (haikoo) {
+            haikoo.social_score --
+        }
+        console.log("transaction runned down")
+        return haikoo;
+      });
+  }
+
+  function UnselectHaikoo(HaikooId) {
     playSound("/Audio/240776__f4ngy__card-flip.wav");
     setCount(0);
     setSelected(false);
+    // UpdateSocialScoreDown(HaikooId);
+    // SelectHaikoo(HaikooId)
+    UpdateSocialScoreDown(HaikooId);
+    
   }
 
   function Evaluate() {}
@@ -97,13 +129,14 @@ const NavigateHaikoos = () => {
             key={i}
             className={selected[i] ? "haikoo_card_selected " : "haikoo_cards"}
           >
+            {/* <FavStar/> */}
             <h1 className="title_haikoo">{haikoo.title}</h1>
             <p className="haikoo_text">"{haikoo.content}"</p>
-            <p className="haikoo_text">"{haikoo.id}"</p>
+            {/* <p className="haikoo_text">"{haikoo.id}"</p> */}
             <br></br>
             <i> by {haikoo.author}</i>
             <p id="technical_score">{haikoo.score}</p>
-            <p>{haikoo.social_score}</p>
+            <p id="popular_score">{haikoo.social_score}</p>
           </animated.ul>
         ))}
       </li>

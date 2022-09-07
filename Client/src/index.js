@@ -9,6 +9,7 @@ import 'firebaseui/dist/firebaseui.css'
 import {BrowserRouter, Routes, Route,} from "react-router-dom";
 import UserView from './Routes/UserView';
 import NavigateHaikoos from './Routes/NavigateHaikoos';
+import Leaderboard from './Routes/Leaderboard';
 
 
 
@@ -24,6 +25,7 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="/account" element={<UserView />} />
       <Route path="/explore" element={<NavigateHaikoos />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
      
   
     </Routes>

@@ -409,3 +409,11 @@ textarea:focus {
     /* bottom: 0; */
     right: 10px;
 }
+
+#popular_score {
+ 
+  position: absolute;
+    color: #5baa37;
+    /* bottom: 0; */
+    left: 10px;
+}

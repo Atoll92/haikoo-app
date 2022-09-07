@@ -417,7 +417,7 @@ const Haikoo = () => {
             <button id="submitbutton" onClick={share}>Publish your Haikoo ! </button>
                <Link to="/explore"><button type="submit" name="button" value="Submit" id="submitbutton" >Discover other haikoos</button></Link> 
                 
-                <button id="submitbutton" >Challenge a friend</button>
+               <Link  to="/leaderboard"> <button id="ldrbrd" >Leaderboard</button> </Link>
                 <button id="startbutton"  onClick={init}>Start</button>
                 
                 </div>
