@@ -34,6 +34,8 @@ const Leaderboard = () => {
             for (var i = 0; i < haikoo_array.length; i++) {
               haikoo_array[i].id = haikoo_ids[i];
             }
+
+             haikoo_array = haikoo_array.sort((A,B) => (B.social_score - A.social_score))
     
             // var twoRandomHaikoo = [
             //   haikoo_array[randomId1],haikoo_array[randomId2],
