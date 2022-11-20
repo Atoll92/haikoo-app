@@ -144,6 +144,8 @@ const Haikoo = () => {
 
 
     function share() {
+        var user_id = "Anonymous"
+        console.log(user_id)
         var batch = inventaire.map(obj => obj.value).join('');
         var haikoo = document.getElementById("userinput").value;
         var signature = "";
@@ -154,6 +156,7 @@ const Haikoo = () => {
             signature = window.prompt("signez votre haikoo");
         } else {
             signature = firebase.auth().currentUser.displayName;
+            user_id = firebase.auth().currentUser.uid;
             title = window.prompt("donnez un titre à votre haikoo");
         }
         var shared_data = { signature: signature, haikoo: haikoo, batch: batch, title: title , score:score, social_score : social_score};
@@ -179,10 +182,12 @@ const Haikoo = () => {
             title: title,
             score: score,
             social_score:0,
+            user_id : user_id,
         }
     
 
         updateAPI(note);
+        
 
 
        
@@ -371,10 +376,10 @@ const Haikoo = () => {
     }
     return (
         <div>
-            
+                            <Loginalt show_userview={show_userview} hideuserview={hideuserview}/>
+
             <div id="container" className="container">
            
-                <Loginalt show_userview={show_userview} hideuserview={hideuserview}/>
                
                    <div className="checkboxcont">
                    

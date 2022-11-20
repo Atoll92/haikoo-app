@@ -46,19 +46,21 @@ import {useState} from 'react';
 
 //   const firebase = initializeApp(firebaseConfig);
 
-const UploadPic = () => {
+const UploadPic = (props) => {
 
     const auth = getAuth();
     const storage = getStorage();
 
     const [imageUpload , setImageUpload] = useState(null)
+   
     const user = auth.currentUser;
     const uploadImage = () => {
-    
+        console.log(imageUpload)
         if(imageUpload == null) return;
         const imageRef = ref(storage, `/images/${user.uid}`);
         uploadBytes(imageRef, imageUpload).then (() =>  {
             alert("image uploaded !");
+            props.onImageUploaded();
           
           
            

@@ -56,7 +56,8 @@ function Loginalt(props) {
   return (
     <div className='signout'>
       
-      <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+      <p>Welcome {firebase.auth().currentUser.displayName}! <br/>You are now signed-in!</p>
+      <Link to="/"> <button onClick={props.show_userview}>Home</button></Link>
      <Link to="/account"> <button onClick={props.show_userview}>My Account</button></Link>
      <Link to="/"><button onClick={props.hideuserview}><a onClick={() => firebase.auth().signOut()}>Sign-out</a></button> </Link>
     </div>

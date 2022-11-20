@@ -3,9 +3,11 @@ import { useState } from "react";
 import { animated } from "react-spring";
 import { getDatabase, ref, onValue, runTransaction} from "firebase/database";
 import { getApps } from "firebase/app";
+import { getDownloadURL } from 'firebase/storage';
+import { getStorage } from 'firebase/storage';
+import { ref as sRef } from 'firebase/storage';
 
-
-
+const storage = getStorage();
 
 const Leaderboard = () => {
 
@@ -36,6 +38,8 @@ const Leaderboard = () => {
             }
 
              haikoo_array = haikoo_array.sort((A,B) => (B.social_score - A.social_score))
+
+
     
             // var twoRandomHaikoo = [
             //   haikoo_array[randomId1],haikoo_array[randomId2],
@@ -43,11 +47,48 @@ const Leaderboard = () => {
     
             // console.log(twoRandomHaikoo);
             setFetchedHaikoo(haikoo_array);
+
+    //         getDownloadURL(ref(storage, `images/${current_user.uid}`))
+    //   .then((url) => {
+    //     // `url` is the download URL for 'images/stars.jpg'
+    
+      
+    //     // Or inserted into an <img> element
+    //     const img = document.getElementById('userpic');
+    //     img.setAttribute('src', url);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   });
+    // }
         });
+       
+       
+      }
+
+      function fetchImage() {
+        for (var i = 0; i < fetched_haikoo.length; i++) {
+          var userID = fetched_haikoo[i].user_id
+          // haikoo_array[i].id = haikoo_ids[i];
+          getDownloadURL(sRef(storage, `images/${fetched_haikoo[i].user_id}`))
+          
+          .then((url) => {
+            // `url` is the download URL for 'images/stars.jpg'
+        
+          
+            // Or inserted into an <img> element
+            const img = document.getElementById(userID);
+            img.setAttribute('src', url);
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+        }
       }
     
     return (
         <div>
+          <button onClick={fetchImage}>fetch image</button>
             <li id="haikoopast">
         {fetched_haikoo.map((haikoo, i) => (
           <animated.ul
@@ -63,9 +104,12 @@ const Leaderboard = () => {
             <p className="haikoo_text">"{haikoo.content}"</p>
             {/* <p className="haikoo_text">"{haikoo.id}"</p> */}
             <br></br>
-            <i> by {haikoo.author}</i>
+            <span>
+            <i> by {haikoo.author}</i><img className="miniature_pic" id={haikoo.user_id} /></span>
             <p id="technical_score">{haikoo.score}</p>
             <p id="popular_score">{haikoo.social_score}</p>
+            
+            {/* id={fetched_haikoo[i].user_id} */}
           </animated.ul>
         ))}
       </li>

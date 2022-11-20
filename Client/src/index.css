@@ -62,6 +62,7 @@ body {
 .container {
   width: 100vw;
   position: relative;
+  margin-top: 60px;
 }
 
 #batch {
@@ -416,4 +417,18 @@ textarea:focus {
     color: #5baa37;
     /* bottom: 0; */
     left: 10px;
+}
+
+#userpic {
+  width:20vw;
+  margin: auto;
+  display: block;
+}
+
+.miniature_pic {
+  width:50px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 2em;
 }
