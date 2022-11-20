@@ -151,7 +151,8 @@ const Haikoo = () => {
         var signature = "";
         var title = "";
         var social_score = 0;
-        var score = Math.floor(document.getElementById("userinput").value.toString().replace(/ /g, "").replace(/,/g, "").replace(/\-/g, "").replace(/\;/g, "").replace(/\./g, "").replace(/\?/g, "").replace(/\!/g, "").length * 100 / 60) + "%" ;
+        var score = Math.floor(document.getElementById("userinput").value.toString().replace(/ /g, "").replace(/,/g, "").replace(/\-/g, "").replace(/\;/g, "").replace(/\./g, "").replace(/\?/g, "").replace(/\!/g, "").length * 100 / 60)  + "%"  ;
+        // + "%" 
         if(!isSignedIn){
             signature = window.prompt("signez votre haikoo");
         } else {
@@ -159,11 +160,12 @@ const Haikoo = () => {
             user_id = firebase.auth().currentUser.uid;
             title = window.prompt("donnez un titre à votre haikoo");
         }
-        var shared_data = { signature: signature, haikoo: haikoo, batch: batch, title: title , score:score, social_score : social_score};
+        var shared_data = { signature: signature, haikoo: haikoo, batch: batch, title: title , score:score, social_score : social_score, batch : batch};
 
         var b64Data = btoa(JSON.stringify(shared_data));
         document.getElementById("popup_invite_link").innerHTML = "Your haikoo has been succesfully posted ! " ;
         document.getElementById("popup_invite").style.display = "block";
+        document.getElementById("playable_block").style.display = "none";
 
         async function updateAPI(note) { 
 
@@ -183,6 +185,7 @@ const Haikoo = () => {
             score: score,
             social_score:0,
             user_id : user_id,
+            batch : batch,
         }
     
 
@@ -391,7 +394,7 @@ const Haikoo = () => {
          
                <SelectHaikoo/>
                 
-                <h1 id="letcount">Counter</h1>
+               
 
                 
                
@@ -399,6 +402,8 @@ const Haikoo = () => {
                 
                     <p id="popup_invite_link"></p>
                 </div>
+                <div id="playable_block">
+                <h1 id="letcount">Counter</h1>
                 <div id="letterslist">
                 </div>
               
@@ -411,7 +416,7 @@ const Haikoo = () => {
 
                     {/* <button id="startbutton-main"  onClick={init}>Start</button> */}
                 </form>
-                
+                </div>
 
                 
                 

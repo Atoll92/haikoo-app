@@ -125,11 +125,13 @@ const UserView = () => {
               const response =  axios.get('https://haikoo-bc326-default-rtdb.europe-west1.firebasedatabase.app/Haikoos.json?auth=' + idToken).then(
                   (response) => {
                       let haikoo_array = Object.values(response.data);
+                      var my_haikoos_locale = [];
                       if (isSignedIn) {
-                        setMyHaikoos (haikoo_array.filter(haikoo => firebase.auth().currentUser.displayName === haikoo.author))
+                        // setMyHaikoos (haikoo_array.filter(haikoo => firebase.auth().currentUser.displayName === haikoo.author))
                         //setMyHaikoos (haikoo_array)
                        
-                      
+                      my_haikoos_locale = haikoo_array.filter(haikoo => firebase.auth().currentUser.displayName === haikoo.author)
+                      setMyHaikoos(my_haikoos_locale)
 
                         // setMyScore( for (i=0;i>haikoo_array.length; i++) )
                       }
@@ -140,14 +142,15 @@ const UserView = () => {
                       let rnd = Math.random() * haikoo_array.length 
                       let rounded_rnd = Math.floor(rnd);
 
-                      const CalculateScore = (my_haikoos) => {
+                      const CalculateScore = (mh) =>  {
                         var score = 0;
                         console.log("my_haikoos")
-                        console.log(my_haikoos)
+                        // console.log(my_haikoos)
+                        console.log(mh)
                         var i;
 
-                        for (i=0; i<my_haikoos.length; i++) {
-                         score = score + my_haikoos[i].social_score
+                        for (i=0; i<mh.length; i++) {
+                         score = score + (mh[i].social_score * mh[i].score.replace(/%/g, ""))
                         }
                         console.log("score")
                         console.log(score)
@@ -155,7 +158,7 @@ const UserView = () => {
                         setMyScore(score)
 
                       }
-                      CalculateScore()
+                      CalculateScore(my_haikoos_locale)
                     
                   }
               )
@@ -214,19 +217,7 @@ const UserView = () => {
     },[current_user])
 
 
-  
-    // function CalculateScore() {
-    //   var score = 0;
 
-    //   for (i=0; i<haikoo_array.length; i++) {
-    //    score = score + haikoo_array[i].social_score
-    //   }
-    //   console.log("score")
-    //   console.log(score)
-
-    //   setMyScore(score)
-
-    // }
 
   
 
@@ -260,6 +251,7 @@ const UserView = () => {
            
             <h1>Favourites</h1>
             <h1>Rankings</h1>
+            <p>{my_score}</p>
 
             
         </div>
