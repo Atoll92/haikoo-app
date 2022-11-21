@@ -21,12 +21,20 @@ const NavigateHaikoos = () => {
 
       console.log([HaikooId]);
       console.log(HaikooId.key);
-    } else {
+    } 
+    else if (count == 5) {
+      playSound("/Audio/when-604.mp3");
+      alert("pas assez de crédits !")
+
+    }
+    else {
       playSound("/Audio/when-604.mp3");
       setSelected({ ...selected, [HaikooId]: !selected[HaikooId] });
       setCount(count + 1);
       UpdateSocialScore(trueHaikooId);
     }
+
+    
     console.log(count);
     console.log(HaikooId);
   };

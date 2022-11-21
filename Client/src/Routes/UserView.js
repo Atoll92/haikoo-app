@@ -150,7 +150,9 @@ const UserView = () => {
                         var i;
 
                         for (i=0; i<mh.length; i++) {
-                         score = score + (mh[i].social_score * mh[i].score.replace(/%/g, ""))
+                         score = score + mh[i].social_score
+                        //  score = score + (mh[i].social_score * mh[i].score.replace(/%/g, ""))
+
                         }
                         console.log("score")
                         console.log(score)
