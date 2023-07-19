@@ -19,9 +19,9 @@ import Loginalt from './Loginalt';
 import { getDownloadURL } from 'firebase/storage';
 
 
-
-
-
+import { Grid } from '@mantine/core';
+import { SimpleGrid } from '@mantine/core';
+import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 
 
 
@@ -236,24 +236,61 @@ const UserView = () => {
           
 
           <Loginalt/>
-            <h1>My Profile</h1>
-            <p>{firebase.auth().currentUser.displayName}</p>
+            <Text weight={900} mb={50} mt={50} size="xl" m="auto">My Profile</Text>
+            {/* <img height={160} src={ "/" + firebase.auth().currentUser.photoURL}/> */}
+      <Card w={600} m="auto" shadow="sm" padding="lg" mw={800} radius="md" withBorder>
+      <Card.Section>
+        <Image
+        
+        // src={ "/" + firebase.auth().currentUser.photoURL}
+        height={160}
+          alt="Norway"
+          id="userpic"
+
+          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
+        />
+        
+      </Card.Section>
+
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>{firebase.auth().currentUser.displayName}</Text>
+        <Badge color="pink" variant="light">
+          Live
+        </Badge>
+      </Group>
+
+      <Text size="sm" color="dimmed">
+      {firebase.auth().currentUser.email}<br></br>
+      Score social :  {my_score} <br></br>
+      Nombre total de haikoos publiés :  {my_haikoos.length}
+
+
+      </Text>
+
+      <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+       Review my info
+      </Button>
+    </Card>
+            {/* <p>{firebase.auth().currentUser.displayName}</p>
             <p>{firebase.auth().currentUser.email}</p>
-            <img id="userpic"></img>
+            <img id="userpic"></img> */}
             <UploadPic/>
-            <img src={ "/" + firebase.auth().currentUser.photoURL}/>
-            <p>{firebase.auth().currentUser.uid}</p>
-            <p>{my_haikoos.length}</p>
+            {/* <img src={ "/" + firebase.auth().currentUser.photoURL}/>
+            <p>{firebase.auth().currentUser.uid}</p> */}
+           
             <div className='Myhaikoos'>
-            <h1>My haikoos</h1>
-            <li>{my_haikoos.map((haikoo, i) =>
-                <ul key={i}><strong>{haikoo.title}</strong><br/> " {haikoo.content}" by <i>{haikoo.author}</i><br/><p>{haikoo.social_score}</p></ul>
-            )}</li>
+            <h1>My haikoos</h1> 
+          
+     
+       
+       <Grid  spacing="lg" justify="center" cols={3} gutterXs={50} gutterMd={50} gutterXl={50}>{my_haikoos.map((haikoo, i) =>
+                 <Grid.Col m={10} span={3} bg="white" key={i}><strong>{haikoo.title}</strong><br/> " {haikoo.content}" by <i>{haikoo.author}</i><br/><Text>{haikoo.social_score}</Text></Grid.Col>
+            )}</Grid>
             </div>
            
-            <h1>Favourites</h1>
+            {/* <h1>Favourites</h1>
             <h1>Rankings</h1>
-            <p>{my_score}</p>
+            <p>{my_score}</p> */}
 
             
         </div>

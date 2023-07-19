@@ -342,7 +342,7 @@ textarea:focus {
   margin-left: 81vw;
 }
 #haikoopast {
- 
+  margin-top: 40pX;
   height: auto;
   padding-left: 2vw;
   padding-right: 2vw;
@@ -384,6 +384,7 @@ textarea:focus {
   border-radius: 1em;
   width: 80vw;
   text-align: center;
+  background: beige;
 }
 
 #fixed_head_count {
@@ -396,8 +397,9 @@ textarea:focus {
   margin: auto;
   /* align-items: initial; */
   z-index: 99;
-  height: fit-content;  
-  height: 30px;
+  height: 40px;
+  margin-bottom: 40px;
+  top:0;
 }
 #fixed_head_count p {
  margin: auto;
@@ -425,10 +427,36 @@ textarea:focus {
   display: block;
 }
 
+#userinput {
+  width: 80vw;
+  margin: auto;
+}
+
 .miniature_pic {
   width:50px;
   position: absolute;
   bottom: 0;
   right: 0;
   border-radius: 2em;
+}
+
+.mantine-Grid-col {
+  border-radius: 20px;
+    border: solid black 1px;
+}
+
+.main-container {
+  margin: 0 200px;
+}
+
+#root {
+box-sizing: initial!important;
+}
+
+*, *::before, *::after {
+  box-sizing: content-box!important;
+}
+
+.textarea {
+  font-size: 30px!important;
 }

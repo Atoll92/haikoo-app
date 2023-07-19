@@ -3,6 +3,9 @@ import { useState } from "react";
 import { animated } from "react-spring";
 import { getDatabase, ref, onValue, runTransaction} from "firebase/database";
 import { getApps } from "firebase/app";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@mantine/core";
+
 // import FavStar from "../Svg/favorite-star-svgrepo-com.svg"
 
 
@@ -92,6 +95,8 @@ const NavigateHaikoos = () => {
   }
 
   const [count, setCount] = useState(0);
+  const navigate = useNavigate(); 
+
 
   function UpdateSocialScoreDown(HaikooId) {
 
@@ -117,14 +122,17 @@ const NavigateHaikoos = () => {
     
   }
 
-  function Evaluate() {}
+  function Evaluate() {
+    navigate("/evaluate");
+  }
 
   return (
     <div>
       <div id="fixed_head_count">
+        <Link to="/"><Button bg="#8593ff" mx={10}>Home</Button></Link>
         <p>You selected {count} haikoos</p>
-        <button onClick={UnselectHaikoo}>Reset</button>
-        <button onClick={Evaluate}>Evaluate</button>
+        <Button bg="#8593ff" mx={10} onClick={UnselectHaikoo}>Reset</Button>
+        <Button bg="#8593ff" mx={10} onClick={Evaluate}>Evaluate</Button>
       </div>
       <li id="haikoopast">
         {fetched_haikoo.map((haikoo, i) => (

@@ -11,13 +11,15 @@ import UserView from './Routes/UserView';
 import NavigateHaikoos from './Routes/NavigateHaikoos';
 import Leaderboard from './Routes/Leaderboard';
 import Haikoo from './Routes/Haikoo';
+import Evaluate from './Routes/Evaluate';
+import { MantineProvider } from '@mantine/core';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
     
 
-   
+  <MantineProvider withGlobalStyles withNormalizeCSS>
     <BrowserRouter>
     <Routes>
   
@@ -26,11 +28,14 @@ root.render(
       <Route path="/explore" element={<NavigateHaikoos />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/haikoo" element={<Haikoo />} />
+      <Route path="/evaluate" element={<Evaluate />} />
      
   
     </Routes>
     
     </BrowserRouter>
+    </MantineProvider>
+    
 );
 
 // If you want to start measuring performance in your app, pass a function

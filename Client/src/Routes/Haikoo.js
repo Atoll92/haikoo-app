@@ -16,6 +16,8 @@ import db from '../FireStoreDB';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import SelectHaikoo from '../SelectHaikoo';
+import { Textarea } from '@mantine/core';
+import { createStyles, Card, Overlay, CardProps, Button, Text, rem } from '@mantine/core';
 
 
 const auth = getAuth();
@@ -377,9 +379,11 @@ const Haikoo = () => {
     function hide_haikoopast() {
         document.getElementById("haikoopast").style.display = "none";
     }
+
+    
     return (
         <div>
-                            <Loginalt show_userview={show_userview} hideuserview={hideuserview}/>
+                            {/* <Loginalt show_userview={show_userview} hideuserview={hideuserview}/> */}
 
             <div id="container" className="container">
            
@@ -409,10 +413,16 @@ const Haikoo = () => {
               
                 <p id="goalreach"></p>
                 <form action="" method="post" >
-                    
-                    <textarea name="haikoo" placeholder="Let your mind go for a stroll..." onKeyUp={count_occurs} onKeyDown={handle_delete} id="userinput">
 
-                </textarea>
+                <Textarea
+                    
+                     name="haikoo" placeholder="Let your mind go for a stroll..."
+                      onKeyUp={count_occurs} 
+                      onKeyDown={handle_delete}
+                        id="userinput"
+                     autosize
+                     minRows={5}>
+                </Textarea>
 
                     {/* <button id="startbutton-main"  onClick={init}>Start</button> */}
                 </form>

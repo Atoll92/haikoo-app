@@ -13,8 +13,8 @@ import { getAuth } from 'firebase/auth';
 import { getStorage, ref} from "firebase/storage";
 import {useState} from 'react';
 
-
-
+import { FileInput } from '@mantine/core';
+import { createStyles, Text, Title, TextInput, Button, Image, rem } from '@mantine/core';
 
 
 
@@ -74,6 +74,7 @@ const UploadPic = (props) => {
 
 console.log("userID");
 
+
     return (
         <div>
            
@@ -82,12 +83,18 @@ console.log("userID");
         <h2>
         Upload a pic of your choice :</h2>
         
-
-     <input type="file" onChange={(event) => {setImageUpload(event.target.files[0])}}/>
-     
- <button onClick={uploadImage}> Upload Pic</button>
+        <FileInput
+       
+      placeholder="Pick file"
+      label="Your profile pic"
+      onChange={(event) => {setImageUpload(event.target.files[0])}}
+    />
+     {/* <input type="file" onChange={(event) => {setImageUpload(event.target.files[0])}}/> */}
+     <Button mr={10} mb={100} mt={10} onClick={uploadImage}> Upload Pic</Button>
+     {/* <Button className="play_buttons2" >Submit</Button> */}
+ {/* <button onClick={uploadImage}> Upload Pic</button> */}
   {/* <button >Submit function</button> */}
- <button className="play_buttons2"  >Submit</button>
+ {/* <button className="play_buttons2"  >Submit</button> */}
       </div> 
       </div>
         </div>
