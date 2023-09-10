@@ -3,6 +3,11 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { Link } from 'react-router-dom';
+import { Button, Header, Menu, Tabs, Title } from '@mantine/core';
+import logo from '../media/create-a-logo-for-a-browser-word-game-named-haikoo-inspired-by-haiku-and-zen-philosophy-professio.png'
+// import { MenuLabel } from '@mantine/core/lib/Menu/MenuLabel/MenuLabel';
+
+
 
 // Configure Firebase.
 // const config = {
@@ -46,22 +51,37 @@ function Loginalt(props) {
   if (!isSignedIn) {
     return (
       <div>
-        
-        
+         <Header id="header">
+        <img id="logo" src={logo} alt="Logo" />
         <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-       
+        </Header>
       </div>
     );
   }
-  return (
-    <div className='signout'>
+
+  if(isSignedIn) {
+    return (
+      // <div className='signout'>
+        <Header id="header">
+          <img id="logo" src={logo} alt="Logo" />
+           
+             
+         {/* <Menu> */}
+          <div id="menubar">
+          <Title ><Link to="/" > Home</Link></Title>
+          <Title ><Link onClick={props.show_userview} to="/account">My Account</Link></Title>
+          <Title onClick={props.hideuserview}> <Link onClick={() => firebase.auth().signOut()} to="/">Sign-out</Link></Title>
+          </div>
+         {/* </Menu> */}
       
-      <p>Welcome {firebase.auth().currentUser.displayName}! <br/>You are now signed-in!</p>
-      <Link to="/"> <button onClick={props.show_userview}>Home</button></Link>
-     <Link to="/account"> <button onClick={props.show_userview}>My Account</button></Link>
-     <Link to="/"><button onClick={props.hideuserview}><a onClick={() => firebase.auth().signOut()}>Sign-out</a></button> </Link>
-    </div>
-  );
+        
+       
+       </Header>
+      // </div>
+    );
+
+  }
+
 }
 
 export default Loginalt;

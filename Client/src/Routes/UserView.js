@@ -244,6 +244,7 @@ const UserView = () => {
           
 
           <Loginalt/>
+          <Text><p>Welcome {firebase.auth().currentUser.displayName}! <br/>You are now signed-in!</p></Text>
             <Text weight={900} mb={50} mt={50} size="xl" m="auto">My Profile</Text>
             {/* <img height={160} src={ "/" + firebase.auth().currentUser.photoURL}/> */}
       <Card w={600} m="auto" shadow="sm" padding="lg" mw={800} radius="md" withBorder>
@@ -289,6 +290,16 @@ const UserView = () => {
            
             <div className='Myhaikoos'>
             <h1>My haikoos</h1> 
+          
+     
+       
+       <Grid  spacing="lg" justify="center" cols={3} gutterXs={50} gutterMd={50} gutterXl={50}>{my_haikoos.map((haikoo, i) =>
+                 <Grid.Col m={10} span={3} bg="white" key={i}><strong>{haikoo.title}</strong><br/> " {haikoo.content}" by <i>{haikoo.author}</i><br/><Text>{haikoo.social_score}</Text></Grid.Col>
+            )}</Grid>
+            </div>
+
+            <div className='Myfriends'>
+            <h1>My friends</h1> 
           
      
        

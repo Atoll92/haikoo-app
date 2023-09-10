@@ -8,6 +8,7 @@ import SignInScreen from '../Login';
 import Loginalt from './Loginalt';
 import UserView from './UserView';
 import db from '../FireStoreDB';
+import { StyledFirebaseAuth } from 'react-firebaseui';
 
 
 
@@ -40,7 +41,19 @@ const Haikoo = () => {
       return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
     }, []);
 
-    
+    const uiConfig = {
+        // Popup signin flow rather than redirect flow.
+        signInFlow: 'popup',
+        // We will display Google and Facebook as auth providers.
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        callbacks: {
+          // Avoid redirects after sign-in.
+          signInSuccessWithAuthResult: () => false,
+        },
+      };
 
 
     const [invitation , setInvitation] = React.useState(null)
@@ -378,8 +391,36 @@ const Haikoo = () => {
     }
     function hide_haikoopast() {
         document.getElementById("haikoopast").style.display = "none";
+
+
     }
 
+    if (!isSignedIn) {
+        return (<>
+            <div id="presentation"><strong>Haikoo</strong> is a word game for those who seek to create works using constrained writing techniques.<br></br> 
+            Haikoonauts have to make the most of a daily renewed batch of random letters. <br></br>
+            Creativity is rewarded through peer reviewed criteria such as originality and poetry.<br>
+            </br>
+            A technical score is also given to an haikoo depending on its length. <br></br>
+            As a platform promoting inner peace there is no time limit so you can let your imagination thrive. <br></br>
+            We encourage kindness and there is no such thing as bad haikoo, votes can only go up.<br></br> 
+            Everyday, top ranking haikoos will be featured on the homepage and compiled into a miscellany celebrating human inventivity and exchange of ideas.<br></br>
+            Haikoo is free to play, if you enjoy playing it, support development by contributing <a>here</a>.<br></br>
+            
+        </div>
+
+<h2 id="mottoCTA">Sign in and start writing !</h2>
+
+
+</>
+   
+
+
+
+            // Future features we are thinking of :  penpal system based on writing styles compatibility, daily challenges, possibility of creating your own set of rules and experimenting within those with your own tribe, better UI, Ads free, etc... 
+        )
+    }
+if(isSignedIn) {
     
     return (
         <div>
@@ -394,7 +435,8 @@ const Haikoo = () => {
                    <input type="checkbox" id="dark" name="dark" onClick={darkmode} unchecked />
                    <label for="dark">Enable dark mode</label>
                </div>
-                <h1 id="batch">Welcome to Haikoo</h1>
+               {/* <h2 id="welcome">{isSignedIn ? 'Welcome to Haikoo' : ''}</h2> */}
+                <h1 id="batch"></h1>
          
                <SelectHaikoo/>
                 
@@ -460,6 +502,7 @@ const Haikoo = () => {
         </div>
     );
 };
+}
 
 export default Haikoo;
 

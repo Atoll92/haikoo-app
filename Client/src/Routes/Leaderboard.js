@@ -15,6 +15,7 @@ const Leaderboard = () => {
 
     React.useEffect(() => {
         fetchHaikoos()
+       
       }, []);
     
       async function fetchHaikoos(){
@@ -47,6 +48,7 @@ const Leaderboard = () => {
     
             // console.log(twoRandomHaikoo);
             setFetchedHaikoo(haikoo_array);
+            fetchImage(); 
 
     //         getDownloadURL(ref(storage, `images/${current_user.uid}`))
     //   .then((url) => {
@@ -66,24 +68,78 @@ const Leaderboard = () => {
        
       }
 
-      function fetchImage() {
-        for (var i = 0; i < fetched_haikoo.length; i++) {
-          var userID = fetched_haikoo[i].user_id
-          // haikoo_array[i].id = haikoo_ids[i];
-          getDownloadURL(sRef(storage, `images/${fetched_haikoo[i].user_id}`))
+      // function fetchImage() {
+      //   for (var i = 0; i < fetched_haikoo.length; i++) {
+      //     var userID = fetched_haikoo[i].user_id
+      //     // haikoo_array[i].id = haikoo_ids[i];
+      //     getDownloadURL(sRef(storage, `images/${fetched_haikoo[i].user_id}`))
           
-          .then((url) => {
-            // `url` is the download URL for 'images/stars.jpg'
+      //     .then((url) => {
+      //       // `url` is the download URL for 'images/stars.jpg'
         
           
-            // Or inserted into an <img> element
-            const img = document.getElementById(userID);
-            img.setAttribute('src', url);
-          })
-          .catch((error) => {
-            console.log(error)
-          });
-        }
+      //       // Or inserted into an <img> element
+      //       const img = document.getElementById(userID);
+      //       img.setAttribute('src', url);
+      //     })
+      //     .catch((error) => {
+      //       console.log(error)
+      //     });
+      //   }
+      // }
+
+      // function fetchImage() {
+      //   const imagePromises = fetched_haikoo.map((haikoo) => {
+      //     return new Promise((resolve, reject) => {
+      //       getDownloadURL(sRef(storage, `images/${haikoo.user_id}`))
+      //         .then((url) => {
+      //           resolve({ user_id: haikoo.user_id, url });
+      //         })
+      //         .catch((error) => {
+      //           reject(error);
+      //         });
+      //     });
+      //   });
+      
+      //   Promise.all(imagePromises)
+      //     .then((imageData) => {
+      //       // Now you have an array of user_id and image URL pairs
+      //       // Update the corresponding img elements with their respective URLs
+      //       imageData.forEach((data) => {
+      //         const img = document.getElementById(data.user_id);
+      //         if (img) {
+      //           img.setAttribute('src', data.url);
+      //         }
+      //       });
+      //     })
+      //     .catch((error) => {
+      //       console.log(error);
+      //     });
+      // }
+
+      function fetchImage() {
+        fetched_haikoo.forEach((haikoo) => {
+          getDownloadURL(sRef(storage, `images/${haikoo.user_id}`))
+            .then((url) => {
+              const img = document.getElementById(haikoo.user_id);
+              if (img) {
+                img.setAttribute('src', url);
+              }
+            })
+            .catch((error) => {
+              if (error.code === 'storage/object-not-found') {
+                // Handle missing image gracefully, e.g., by displaying a placeholder image.
+                const img = document.getElementById(haikoo.user_id);
+                if (img) {
+                  // Set a placeholder image or a default image URL
+                  img.setAttribute('src', '');
+                }
+              } else {
+                // Handle other errors
+                console.log(error);
+              }
+            });
+        });
       }
     
     return (

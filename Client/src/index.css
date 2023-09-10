@@ -3,6 +3,22 @@
 
 html {
   font-family: 'Inter', sans-serif;
+  background-color: #e9e4d9;
+}
+#header {
+  background-color: #e9e4d9;
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+}
+#presentation {
+  margin: auto;
+  display: block;
+  width: 50%;
+  border: 3px solid;
+  border-radius: 20px;
+  padding: 50px;
+  margin-top: 50px;
 }
 
 .checkboxcont {
@@ -22,7 +38,7 @@ height: 200px;
 /* background: no-repeat; */
 top: 0;
 /*    fill: white;*/
-z-index: -2;
+z-index: 2;
 
 }
 #batch::before {
@@ -37,7 +53,7 @@ height: 200px;
 /* background: no-repeat; */
 top: 0;
 /*    fill: white;*/
-z-index: -1;
+z-index: 1;
 
 }
 
@@ -54,24 +70,61 @@ z-index: -1;
   filter: url(#shaky);
 }
 
-body {
-  background: #E7E7E7;
-  margin: 0;
+#mottoCTA {
+  margin: auto;
+  text-align: center;
+  margin-top: 50px;
 }
 
+body {
+  background-color: #e9e4d9;
+  margin: 0;
+}
+.Myfriends{
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  /* display: flex; */
+  border: 2px black solid;
+  border-radius: 1em;
+  width: 80vw;
+  text-align: center;
+  background: beige;
+}
+
+#playable_block {
+  position: relative;
+  z-index: 99;
+}
+#menubar {
+  display: flex;
+  flex-direction: row;
+  width: 50vw;
+  right: 0;
+  justify-content: space-between;
+}
 .container {
   width: 100vw;
   position: relative;
-  margin-top: 60px;
+  margin-top: 150px;
 }
 
+#userview .text {
+  color: red;
+}
 #batch {
   word-break: break-all;
   margin: 1vw 5vw;
   margin-top: -3vw;
   margin-bottom: 3vw;
- 
+ position: relative;
   font-family: 'Inter', sans-serif;
+}
+
+#welcome {
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  z-index: 3;
 }
 
 .bottom_controls button, .signout button {
@@ -208,6 +261,12 @@ textarea {
   margin: auto;
 }
 
+a {
+  text-decoration: none!important;
+  font-family: 'Inter', sans-serif;
+  color: black;
+}
+
 textarea:focus {
   /*  outline-offset: -6px;*/
   outline: none !important;
@@ -339,7 +398,7 @@ textarea:focus {
 }
 #firebaseui_container {
   width: fit-content;
-  margin-left: 81vw;
+  /* margin-left: 81vw; */
 }
 #haikoopast {
   margin-top: 40pX;
@@ -451,6 +510,7 @@ textarea:focus {
 
 #root {
 box-sizing: initial!important;
+background-color: #e9e4d9;
 }
 
 *, *::before, *::after {
@@ -459,4 +519,9 @@ box-sizing: initial!important;
 
 .textarea {
   font-size: 30px!important;
+}
+
+#logo {
+  width:10vw;
+  float: top;
 }
