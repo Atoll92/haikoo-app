@@ -63,7 +63,7 @@ function Loginalt(props) {
     return (
       // <div className='signout'>
         <Header id="header">
-          <img id="logo" src={logo} alt="Logo" />
+         <Link  to="/"> <img id="logo" src={logo} alt="Logo" /></Link>
            
              
          {/* <Menu> */}

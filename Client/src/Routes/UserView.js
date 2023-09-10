@@ -281,11 +281,12 @@ const UserView = () => {
       <Button variant="light" color="blue" fullWidth mt="md" radius="md">
        Review my info
       </Button>
+      <UploadPic onImageUploaded={handleImageUploaded}/>
     </Card>
             {/* <p>{firebase.auth().currentUser.displayName}</p>
             <p>{firebase.auth().currentUser.email}</p>
             */}
-            <UploadPic onImageUploaded={handleImageUploaded}/>
+           
             {/* <img src={ "/" + firebase.auth().currentUser.photoURL}/>
             <p>{firebase.auth().currentUser.uid}</p> */}
            
