@@ -6,6 +6,7 @@ import { getApps } from "firebase/app";
 import { getDownloadURL } from 'firebase/storage';
 import { getStorage } from 'firebase/storage';
 import { ref as sRef } from 'firebase/storage';
+import Loginalt from './Loginalt';
 
 const storage = getStorage();
 
@@ -144,6 +145,7 @@ const Leaderboard = () => {
     
     return (
         <div>
+          <Loginalt></Loginalt>
           <button onClick={fetchImage}>fetch image</button>
             <li id="haikoopast">
         {fetched_haikoo.map((haikoo, i) => (

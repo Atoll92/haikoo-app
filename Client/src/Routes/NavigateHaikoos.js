@@ -5,6 +5,8 @@ import { getDatabase, ref, onValue, runTransaction} from "firebase/database";
 import { getApps } from "firebase/app";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mantine/core";
+import Footer1 from "./Footer1";
+import Loginalt from "./Loginalt";
 
 // import FavStar from "../Svg/favorite-star-svgrepo-com.svg"
 
@@ -128,8 +130,9 @@ const NavigateHaikoos = () => {
 
   return (
     <div>
+      <Loginalt></Loginalt>
       <div id="fixed_head_count">
-        <Link to="/haikoo"><Button bg="#8593ff" mx={10}>Home</Button></Link>
+        {/* <Link to="/haikoo"><Button bg="#8593ff" mx={10}>Home</Button></Link> */}
         <p>You selected {count} haikoos</p>
         <Button bg="#8593ff" mx={10} onClick={UnselectHaikoo}>Reset</Button>
         <Button bg="#8593ff" mx={10} onClick={Evaluate}>Evaluate</Button>
@@ -156,6 +159,7 @@ const NavigateHaikoos = () => {
           </animated.ul>
         ))}
       </li>
+      <Footer1></Footer1>
     </div>
   );
 };

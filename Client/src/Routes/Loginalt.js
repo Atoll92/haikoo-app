@@ -68,9 +68,11 @@ function Loginalt(props) {
              
          {/* <Menu> */}
           <div id="menubar">
-          <Title ><Link to="/" > Home</Link></Title>
-          <Title ><Link onClick={props.show_userview} to="/account">My Account</Link></Title>
-          <Title onClick={props.hideuserview}> <Link onClick={() => firebase.auth().signOut()} to="/">Sign-out</Link></Title>
+         
+          <h2 ><Link onClick={props.show_userview} to="/account">My Account</Link></h2>
+          <h2><Link to="/explore">Explore</Link> </h2>
+          <h2> <Link  to="/leaderboard"> Leaderboard</Link></h2>
+          <h2 id="logoutred" onClick={props.hideuserview}> <Link onClick={() => firebase.auth().signOut()} to="/">Sign-out</Link></h2>
           </div>
          {/* </Menu> */}
       

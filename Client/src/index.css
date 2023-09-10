@@ -126,6 +126,26 @@ body {
   font-family: 'Inter', sans-serif;
   z-index: 3;
 }
+.play_controls button, .signout button {
+  margin: auto;
+  display: block;
+  background: transparent !important;
+  color: black !important;
+  text-transform: uppercase;
+  border: 1px solid black !important;
+  padding: 1vw;
+  width: 25vw;
+  cursor: pointer;
+
+}
+
+.play_controls {
+display: flex;
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+    background: #c8c8c8;
+}
 
 .bottom_controls button, .signout button {
   margin: auto;
@@ -243,7 +263,7 @@ h1 {
   width: 100vw;
   min-height:100vh ;
   /* position: fixed; */
-  background: white;
+  background: #e9e4d9;
   flex-direction: column;
   display: flex;
  
@@ -400,8 +420,14 @@ textarea:focus {
   width: fit-content;
   /* margin-left: 81vw; */
 }
+
+.mantine-1d564l0 {
+
+text-align: left;
+margin-left: 50px;
+}
 #haikoopast {
-  margin-top: 40pX;
+
   height: auto;
   padding-left: 2vw;
   padding-right: 2vw;
@@ -418,13 +444,20 @@ textarea:focus {
   color: burlywood;
 }
 
+#logoutred a {
+  color:red;
+}
+
 .bottom_controls {
   display: flex;
-  width:100vw;
-  flex-direction: row;
-  background-color: #C8C8C8;
-  position: fixed;
-  bottom: 0;
+    width: 100vw;
+    flex-direction: row;
+    background-color: #e9e4d9;
+    position: relative;
+    bottom: 0;
+    border-top: 10px solid white;
+    justify-content: space-around;
+  
 }
 
 .startbutton_init {
@@ -447,7 +480,7 @@ textarea:focus {
 }
 
 #fixed_head_count {
-  position: fixed;
+  position: sticky;
   background: #8593ff;
   width: 100vw;
   color: white;
@@ -457,7 +490,7 @@ textarea:focus {
   /* align-items: initial; */
   z-index: 99;
   height: 40px;
-  margin-bottom: 40px;
+
   top:0;
 }
 #fixed_head_count p {

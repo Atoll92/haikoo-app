@@ -17,8 +17,9 @@ import { StyledFirebaseAuth } from 'react-firebaseui';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import SelectHaikoo from '../SelectHaikoo';
-import { Textarea } from '@mantine/core';
+import { Footer, Textarea } from '@mantine/core';
 import { createStyles, Card, Overlay, CardProps, Button, Text, rem } from '@mantine/core';
+import Footer1 from './Footer1';
 
 
 const auth = getAuth();
@@ -425,16 +426,16 @@ if(isSignedIn) {
     return (
         <div>
                             {/* <Loginalt show_userview={show_userview} hideuserview={hideuserview}/> */}
-
+{/* <Loginalt></Loginalt> */}
             <div id="container" className="container">
            
                
-                   <div className="checkboxcont">
+                   {/* <div className="checkboxcont">
                    
                
                    <input type="checkbox" id="dark" name="dark" onClick={darkmode} unchecked />
                    <label for="dark">Enable dark mode</label>
-               </div>
+               </div> */}
                {/* <h2 id="welcome">{isSignedIn ? 'Welcome to Haikoo' : ''}</h2> */}
                 <h1 id="batch"></h1>
          
@@ -468,6 +469,11 @@ if(isSignedIn) {
 
                     {/* <button id="startbutton-main"  onClick={init}>Start</button> */}
                 </form>
+                <div className='play_controls'>
+                <button id="startbutton"  onClick={init}>Start</button> 
+                 <button id="submitbutton" onClick={share}>Publish your Haikoo ! </button>
+                </div>
+               
                 </div>
 
                 
@@ -475,14 +481,8 @@ if(isSignedIn) {
 
 
             </div>
-            <div className='bottom_controls'>
-            <button id="submitbutton" onClick={share}>Publish your Haikoo ! </button>
-               <Link to="/explore"><button type="submit" name="button" value="Submit" id="submitbutton" >Discover other haikoos</button></Link> 
-                
-               <Link  to="/leaderboard"> <button id="ldrbrd" >Leaderboard</button> </Link>
-                <button id="startbutton"  onClick={init}>Start</button>
-                
-                </div>
+           <Footer1></Footer1>
+          
 
             <svg>
                 <filter id="shaka">

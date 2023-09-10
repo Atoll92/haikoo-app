@@ -22,6 +22,7 @@ import { getDownloadURL } from 'firebase/storage';
 import { Grid } from '@mantine/core';
 import { SimpleGrid } from '@mantine/core';
 import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
+import Footer1 from './Footer1';
 
 
 
@@ -244,7 +245,7 @@ const UserView = () => {
           
 
           <Loginalt/>
-          <Text><p>Welcome {firebase.auth().currentUser.displayName}! <br/>You are now signed-in!</p></Text>
+          <Text>Welcome {firebase.auth().currentUser.displayName}! <br/>You are now signed-in!</Text>
             <Text weight={900} mb={50} mt={50} size="xl" m="auto">My Profile</Text>
             {/* <img height={160} src={ "/" + firebase.auth().currentUser.photoURL}/> */}
       <Card w={600} m="auto" shadow="sm" padding="lg" mw={800} radius="md" withBorder>
@@ -312,7 +313,7 @@ const UserView = () => {
             <h1>Rankings</h1>
             <p>{my_score}</p> */}
 
-            
+            <Footer1></Footer1>
         </div>
     );
 };

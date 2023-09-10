@@ -13,6 +13,7 @@ import Leaderboard from './Routes/Leaderboard';
 import Haikoo from './Routes/Haikoo';
 import Evaluate from './Routes/Evaluate';
 import { MantineProvider } from '@mantine/core';
+import Terms from './Routes/Terms';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,6 +30,7 @@ root.render(
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/haikoo" element={<Haikoo />} />
       <Route path="/evaluate" element={<Evaluate />} />
+      <Route path="/terms&services" element={<Terms />} />
      
   
     </Routes>
