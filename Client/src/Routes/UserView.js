@@ -173,7 +173,7 @@ const UserView = () => {
     
 
 
-//   refreshImage() {
+//    refreshImage() {
 
 
 //     if(current_user) {
@@ -196,6 +196,7 @@ const UserView = () => {
 // }
 
 
+
     useEffect( () => {
     // refreshImage()
     if(current_user) {
@@ -209,6 +210,7 @@ const UserView = () => {
         // Or inserted into an <img> element
         const img = document.getElementById('userpic');
         img.setAttribute('src', url);
+        console.log("image url set as attribute")
       })
       .catch((error) => {
         console.log(error)
@@ -227,7 +229,13 @@ const UserView = () => {
       return;
     }
 
-   
+    const handleImageUploaded = (imageUrl) => {
+      // Do something with the new image URL, such as updating the UI
+      // or saving it to your database.
+      const img = document.getElementById('userpic');
+        img.setAttribute('src', imageUrl);
+      console.log('New image URL:', imageUrl);
+    };
     
 
       
@@ -240,15 +248,15 @@ const UserView = () => {
             {/* <img height={160} src={ "/" + firebase.auth().currentUser.photoURL}/> */}
       <Card w={600} m="auto" shadow="sm" padding="lg" mw={800} radius="md" withBorder>
       <Card.Section>
-        <Image
+        {/* <Image 
         
-        // src={ "/" + firebase.auth().currentUser.photoURL}
+      
         height={160}
-          alt="Norway"
-          id="userpic"
-
-          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-        />
+         
+       
+        
+        /> */}
+        <img   id="userpic"  ></img>
         
       </Card.Section>
 
@@ -262,7 +270,8 @@ const UserView = () => {
       <Text size="sm" color="dimmed">
       {firebase.auth().currentUser.email}<br></br>
       Score social :  {my_score} <br></br>
-      Nombre total de haikoos publiés :  {my_haikoos.length}
+      Nombre total de haikoos publiés :  {my_haikoos.length}<br></br>
+      id : {firebase.auth().currentUser.uid}
 
 
       </Text>
@@ -273,8 +282,8 @@ const UserView = () => {
     </Card>
             {/* <p>{firebase.auth().currentUser.displayName}</p>
             <p>{firebase.auth().currentUser.email}</p>
-            <img id="userpic"></img> */}
-            <UploadPic/>
+            */}
+            <UploadPic onImageUploaded={handleImageUploaded}/>
             {/* <img src={ "/" + firebase.auth().currentUser.photoURL}/>
             <p>{firebase.auth().currentUser.uid}</p> */}
            

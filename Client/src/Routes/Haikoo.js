@@ -93,7 +93,7 @@ const Haikoo = () => {
         if (invitation) {
             inventaire = initInventaireFromInvite(invitation);
         } else {
-            inventaire = initInventaire(60);
+            inventaire = initInventaire(75);
         }
 
         // inventaire[12].used = true;
@@ -138,7 +138,7 @@ const Haikoo = () => {
 
 
     function submit() {
-        document.getElementById("goalreach").innerHTML = Math.floor(document.getElementById("userinput").value.toString().replace(/ /g, "").replace(/,/g, "").replace(/\-/g, "").replace(/\;/g, "").replace(/\./g, "").replace(/\?/g, "").replace(/\!/g, "").length * 100 / 60) + "%";
+        document.getElementById("goalreach").innerHTML = Math.floor(document.getElementById("userinput").value.toString().replace(/ /g, "").replace(/,/g, "").replace(/\-/g, "").replace(/\;/g, "").replace(/\./g, "").replace(/\?/g, "").replace(/\!/g, "").length * 100 / 75) + "%";
 
     }
 
@@ -153,7 +153,7 @@ const Haikoo = () => {
         var signature = "";
         var title = "";
         var social_score = 0;
-        var score = Math.floor(document.getElementById("userinput").value.toString().replace(/ /g, "").replace(/,/g, "").replace(/\-/g, "").replace(/\;/g, "").replace(/\./g, "").replace(/\?/g, "").replace(/\!/g, "").length * 100 / 60)  + "%"  ;
+        var score = Math.floor(document.getElementById("userinput").value.toString().replace(/ /g, "").replace(/,/g, "").replace(/\-/g, "").replace(/\;/g, "").replace(/\./g, "").replace(/\?/g, "").replace(/\!/g, "").length * 100 / 75)  + "%"  ;
         // + "%" 
         if(!isSignedIn){
             signature = window.prompt("signez votre haikoo");

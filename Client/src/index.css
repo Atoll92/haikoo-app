@@ -422,7 +422,7 @@ textarea:focus {
 }
 
 #userpic {
-  width:20vw;
+  width:100%;
   margin: auto;
   display: block;
 }

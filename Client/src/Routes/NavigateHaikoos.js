@@ -129,7 +129,7 @@ const NavigateHaikoos = () => {
   return (
     <div>
       <div id="fixed_head_count">
-        <Link to="/"><Button bg="#8593ff" mx={10}>Home</Button></Link>
+        <Link to="/haikoo"><Button bg="#8593ff" mx={10}>Home</Button></Link>
         <p>You selected {count} haikoos</p>
         <Button bg="#8593ff" mx={10} onClick={UnselectHaikoo}>Reset</Button>
         <Button bg="#8593ff" mx={10} onClick={Evaluate}>Evaluate</Button>
