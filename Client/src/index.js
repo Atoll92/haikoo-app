@@ -14,6 +14,7 @@ import Haikoo from './Routes/Haikoo';
 import Evaluate from './Routes/Evaluate';
 import { MantineProvider } from '@mantine/core';
 import Terms from './Routes/Terms';
+import Culture from './Routes/Culture';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,7 +32,7 @@ root.render(
       <Route path="/haikoo" element={<Haikoo />} />
       <Route path="/evaluate" element={<Evaluate />} />
       <Route path="/terms&services" element={<Terms />} />
-     
+      <Route path="/culture" element={<Culture/>} />     
   
     </Routes>
     

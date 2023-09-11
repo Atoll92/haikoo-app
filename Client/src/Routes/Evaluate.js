@@ -7,11 +7,11 @@ import { Box } from '@mantine/core';
 const Evaluate = () => {
     return (
         <div>
-            <Box>
+            <Box id="presentation">
             <h1>Thanks for evaluating haikoos</h1>
             <h2>Selected Haikoo now appear in your book</h2>
             </Box>
-           <Link to="/haikoo"> <Button>Bring me back to writing !</Button></Link>
+           <Link to="/"> <Button className='centered'>Bring me back to writing !</Button></Link>
             
             
         </div>
