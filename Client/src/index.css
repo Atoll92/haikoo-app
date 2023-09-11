@@ -195,6 +195,14 @@ display: flex;
   border: none !important;
 
 }
+
+#favstar {
+  filter: grayscale();
+  width: 80px;
+  position: absolute;
+  right: 0;
+  top: 0px;
+}
 .invisible {
   opacity: 0;
   transition: all 0.5s ease-in-out;
@@ -392,10 +400,13 @@ textarea:focus {
 #chosen_haikoo i {
   color:#052a53;
 }
+.favstar-active {
+  filter: none!important; /* Remove the grayscale filter */
+}
 
 .title_haikoo {
-  background-color: black;
-  color: white;
+  /* background-color: black; */
+  color: black;
   margin-top: -1vw;
   /* width: 100%; */
   margin-left: -1vw;
@@ -506,9 +517,10 @@ margin-left: 50px;
 #technical_score {
  
   position: absolute;
-    color: #6b7a64;
-    /* bottom: 0; */
-    right: 10px;
+  color: #6b7a64;
+  /* bottom: 0; */
+  left: 10px;
+  top: 40px;
 }
 
 #popular_score {

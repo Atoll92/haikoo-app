@@ -20,11 +20,12 @@ import { getDownloadURL } from 'firebase/storage';
 import { doc } from 'firebase/firestore';
 import { getDoc } from 'firebase/firestore';
 
-import { Grid } from '@mantine/core';
+import { Grid, Title } from '@mantine/core';
 import { SimpleGrid } from '@mantine/core';
 import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 import Footer1 from './Footer1';
     import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
+import FavoriteHaikoos from '../Components/FavoriteHaikoos';
 
 
 
@@ -318,6 +319,7 @@ const UserView = () => {
     }
 
 
+
     const retrieveFriendNames = async (friendIds) => {
       const db = getFirestore();
       const userCollection = collection(db, 'users'); // Replace 'users' with your user collection name
@@ -585,28 +587,23 @@ const UserView = () => {
 
             <div className='Myfriends'>
             <h1>My friends</h1> 
-          
-            <ul>
-          {friendIds.map((friendId, index) => (
-            <li key={index}>
-              {friendNames[friendId] ? (
-                friendNames[friendId]
-              ) : (
-                `User ${friendId}` // Display a default name or message if the name is not available
-              )}
-            </li>
-          ))}
-        </ul>
-       
-       {/* <Grid  spacing="lg" justify="center" cols={3} gutterXs={50} gutterMd={50} gutterXl={50}>{my_haikoos.map((haikoo, i) =>
-                 <Grid.Col m={10} span={3} bg="white" key={i}><strong>{haikoo.title}</strong><br/> " {haikoo.content}" by <i>{haikoo.author}</i><br/><Text>{haikoo.social_score}</Text></Grid.Col>
-            )}</Grid> */}
+            <Grid  spacing="lg" justify="center" cols={3} gutterXs={50} gutterMd={50} gutterXl={50}>
+              {friendIds.map((friendId, index) => (
+                 <Grid.Col m={10} span={3} bg="white" key={index}>
+                   <strong>
+                 {friendNames[friendId] ? (
+                   friendNames[friendId]
+                 ) : (
+                   `User ${friendId}` // Display a default name or message if the name is not available
+                 )}
+                 </strong></Grid.Col>
+            ))}</Grid>
             </div>
-           
-            {/* <h1>Favourites</h1>
-            <h1>Rankings</h1>
-            <p>{my_score}</p> */}
 
+            <FavoriteHaikoos/>
+            
+          
+       
             <Footer1></Footer1>
         </div>
     );

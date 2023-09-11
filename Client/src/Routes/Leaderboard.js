@@ -22,12 +22,15 @@ import { get } from 'firebase/database';
 import { getDoc } from 'firebase/firestore';
 import { DocumentReference } from 'firebase/firestore';
 import { setDoc } from 'firebase/firestore';
+import { StarIcon } from '@mantine/core';
+import favstar from '../media/favstar.png'
 
 const storage = getStorage();
 
 const Leaderboard = () => {
 
     const [fetched_haikoo, setFetchedHaikoo] = React.useState([]);
+    const [activeStarIcon, setActiveStarIcon] = useState(null);
     const auth = getAuth();
 const user = auth.currentUser;
 
@@ -290,6 +293,73 @@ const user = auth.currentUser;
             });
         });
       }
+      const fav_function = async (haikoo) => {
+        try {
+          const auth = getAuth();
+          const user = auth.currentUser;
+      
+          if (!user) {
+            console.error('User is not authenticated');
+            return;
+          }
+      
+          const db = getFirestore();
+          const userDocRef = doc(db, 'users_social', user.uid);
+          const userDocSnapshot = await getDoc(userDocRef);
+      
+          if (userDocSnapshot.exists()) {
+            const userData = userDocSnapshot.data();
+      
+            // Check if the Haikoo ID is already in favorites
+            if (userData.favorites && userData.favorites[haikoo.id]) {
+              // Haikoo is already in favorites, so remove it
+              delete userData.favorites[haikoo.id];
+                setActiveStarIcon(haikoo.id);
+            } else {
+              // Haikoo is not in favorites, so add it
+              userData.favorites = {
+                ...(userData.favorites || {}), // Create a new favorites object if it doesn't exist
+                [haikoo.id]: true,
+              };
+              setActiveStarIcon(haikoo.id);
+            }
+      
+            // Update the user's document with the modified favorites field
+            await setDoc(userDocRef, userData);
+            console.log(`Toggled Haikoo with ID ${haikoo.id} in favorites`);
+          } else {
+            console.error('User document does not exist');
+          }
+        } catch (error) {
+          console.error('Error toggling Haikoo in favorites: ', error);
+        }
+      };
+      // const fav_function = async (haikoo) => {
+      //   try {
+      //     const auth = getAuth();
+      //     const user = auth.currentUser;
+      
+      //     if (!user) {
+      //       console.error('User is not authenticated');
+      //       return;
+      //     }
+      
+      //     const db = getFirestore();
+      //     const userDocRef = doc(db, 'users_social', user.uid);
+      
+      //     // Update the user's 'favorites' field with the Haikoo ID
+      //     await updateDoc(userDocRef, {
+      //       favorites: {
+      //         [haikoo.id]: true,
+      //       },
+      //     });
+      //     setActiveStarIcon(haikoo.id);
+      
+      //     console.log(`Added Haikoo with ID ${haikoo.id} to favorites`);
+      //   } catch (error) {
+      //     console.error('Error adding Haikoo to favorites: ', error);
+      //   }
+      // };
     
     return (
         <div>
@@ -307,11 +377,14 @@ const user = auth.currentUser;
             className={"haikoo_cards"}
           >
             <h1 className="title_haikoo">{haikoo.title}</h1>
+             <img onClick={() => fav_function(haikoo)} id="favstar" src={favstar} alt="Logo"  className={activeStarIcon === haikoo.id ? 'favstar-active' : ''} />
+            {/* <StarIcon onClick={() => fav_function(haikoo)}></StarIcon> */}
             <p className="haikoo_text">"{haikoo.content}"</p>
             {/* <p className="haikoo_text">"{haikoo.id}"</p> */}
             <br></br>
             <span>
               <Button onClick={() => follow_function(haikoo)}>follow</Button>
+              
             <i> by {haikoo.author}</i><img className="miniature_pic" id={haikoo.user_id} /></span>
             <p id="technical_score">{haikoo.score}</p>
             <p id="popular_score">{haikoo.social_score}</p>
