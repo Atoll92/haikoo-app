@@ -93,7 +93,7 @@ function Loginalt(props) {
           <h2 ><Link onClick={props.show_userview} to="/account">My Account</Link></h2>
           <h2><Link to="/explore">Explore</Link> </h2>
           <h2> <Link  to="/leaderboard"> Leaderboard</Link></h2>
-          <h2><Link to="/culture">Culture</Link> </h2>
+          {/* <h2><Link to="/culture">Culture</Link> </h2> */}
           <h2 id="logoutred" onClick={props.hideuserview}> <Link onClick={() => firebase.auth().signOut()} to="/">Sign-out</Link></h2>
           
           </div>
