@@ -26,6 +26,7 @@ import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 import Footer1 from './Footer1';
     import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import FavoriteHaikoos from '../Components/FavoriteHaikoos';
+import Friends from '../Components/Friends';
 
 
 
@@ -54,38 +55,7 @@ const storage = getStorage();
 
 const auth = getAuth();
 const user = auth.currentUser;
-// const [current_user , setCurrentUser] = React.useState(null);
 
-
-// onAuthStateChanged(auth, (user) => {
-//   if (user) {
-
-//     console.log("USER")
-//     console.log(user)
-//     setCurrentUser(user);
-
-
-
-//     // User is signed in, see docs for a list of available properties
-//     // https://firebase.google.com/docs/reference/js/firebase.User
-//     const uid = user.uid;
-//     // ...
-//   } else {
-//     // User is signed out
-//     // ...
-//     console.log("NOUSER")
-//   }
-// });
-
-
-
-// const user = auth.currentUser;
-
-// if (user) {
-//  console.log("usersignedin")
-// } else {
-//     console.log("nousersignedin")
-// }
 
 
 
@@ -183,27 +153,6 @@ const UserView = () => {
     
 
 
-//    refreshImage() {
-
-
-//     if(current_user) {
-
-   
-//     getDownloadURL(ref(storage, `images/${current_user.uid}`))
-//     .then((url) => {
-//       // `url` is the download URL for 'images/stars.jpg'
-  
-    
-//       // Or inserted into an <img> element
-//       const img = document.getElementById('userpic');
-//       img.setAttribute('src', url);
-//     })
-//     .catch((error) => {
-//       console.log(error)
-//     });
-//   }
-
-// }
 
 
 
@@ -211,37 +160,8 @@ const UserView = () => {
     // refreshImage()
     if(current_user) {
 
-      // const userId = current_user.uid;
-  
-      // fetchUserSocialData(userId)
-      //   .then((friends) => {
-      //     console.log('User Friends Data:', friends);
-      //     setFriends(friends); // Update the friends state with the fetched data
-      //   })
-      //   .catch((error) => {
-      //     console.error('Error:', error);
-      //   });
-      const userId = 'gzkdF749UzabZFe3ihJatYzJ21l1'; // Replace with the actual user's ID
-      retrieveAllFriendIds(userId)
-        .then((friendIds) => {
-          setFriendIds(friendIds);
-          retrieveFriendNames(friendIds);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+    
 
-//       const userId = 'gzkdF749UzabZFe3ihJatYzJ21l1'; // Replace with the actual user's ID
-// const friendIndex = 'friend_1'; // Replace with the index you want to retrieve
-// retrieveFriendId(userId, friendIndex)
-//   .then((friendId) => {
-//     if (friendId !== null) {
-//       console.log(`Friend ID at index ${friendIndex}: ${friendId}`);
-//     }
-//   })
-//   .catch((error) => {
-//     console.error('Error:', error);
-//   });
    
       getDownloadURL(ref(storage, `images/${current_user.uid}`))
       .then((url) => {
@@ -258,27 +178,7 @@ const UserView = () => {
       });
 
       
-      // const userId = current_user.uid;
-         
-      
-      //     fetchUserSocialData(userId)
-      //       .then((friends) => {
-      //         console.log('User Social Data:', friends);
-      //         // Now you have the user's social data (haikoos) in the state and can display it as needed.
-      //       })
-      //       .catch((error) => {
-      //         console.error('Error:', error);
-      //       });
-        
-     
-      // const userId = current_user.uid; // Replace with the actual user's ID
-      // getHaikoosForUser(userId)
-      //   .then((haikoos) => {
-      //     console.log('Haikoos for the user:', haikoos);
-      //   })
-      //   .catch((error) => {
-      //     console.error('Error:', error);
-      //   });
+  
     
   
     }
@@ -286,189 +186,12 @@ const UserView = () => {
      
     },[current_user])
 
-    async function retrieveAllFriendIds(userId) {
-      try {
-        const db = getFirestore();
-        const userSocialDocRef = doc(db, 'users_social', userId);
-    
-        // Get the document data
-        const docSnapshot = await getDoc(userSocialDocRef);
-        if (docSnapshot.exists()) {
-          const data = docSnapshot.data();
-          const friendIds = [];
-    
-          // Iterate through the keys of the data object
-          for (const key in data) {
-            if (key.startsWith('friend_')) {
-              const friendData = data[key];
-              if (friendData && friendData.friend_id) {
-                friendIds.push(friendData.friend_id);
-              }
-            }
-          }
-    
-          return friendIds;
-        } else {
-          console.log('User social document does not exist.');
-          return [];
-        }
-      } catch (error) {
-        console.error('Error retrieving friend_ids: ', error);
-        return [];
-      }
-    }
 
 
 
-    const retrieveFriendNames = async (friendIds) => {
-      const db = getFirestore();
-      const userCollection = collection(db, 'users'); // Replace 'users' with your user collection name
+
+    
   
-      const names = {};
-  
-      for (const friendId of friendIds) {
-        const userDocRef = doc(userCollection, friendId);
-        try {
-          const userDocSnapshot = await getDoc(userDocRef);
-          if (userDocSnapshot.exists()) {
-            const userData = userDocSnapshot.data();
-            if (userData.displayName) {
-              names[friendId] = userData.displayName;
-            }
-          }
-        } catch (error) {
-          console.error('Error fetching user data for friendId:', friendId, error);
-        }
-      }
-  
-      setFriendNames(names); // Update the state with friend names
-    };
-    // async function retrieveFriendId(userId, friendIndex) {
-    //   try {
-    //     const db = getFirestore();
-    //     const userSocialDocRef = doc(db, 'users_social', userId);
-    
-    //     // Get the document data
-    //     const docSnapshot = await getDoc(userSocialDocRef);
-    //     if (docSnapshot.exists()) {
-    //       const data = docSnapshot.data();
-    //       if (data[friendIndex]) {
-    //         const friendData = data[friendIndex];
-    //         const friendId = friendData.friend_id;
-    //         return friendId;
-    //       } else {
-    //         console.log(`Friend at index ${friendIndex} does not exist.`);
-    //         return null;
-    //       }
-    //     } else {
-    //       console.log('User social document does not exist.');
-    //       return null;
-    //     }
-    //   } catch (error) {
-    //     console.error('Error retrieving friend_id: ', error);
-    //     return null;
-    //   }
-    // }
-
-
-    // const fetchUserSocialData = async (userId) => {
-    //   const db = getFirestore();
-    //   const haikoosCollection = collection(db, 'users_social');
-    //   const q = query(haikoosCollection, where('user_uid', '==', userId));
-    
-    //   try {
-    //     const querySnapshot = await getDocs(q);
-    //     const friends = [];
-    
-    //     querySnapshot.forEach((doc) => {
-    //       const data = doc.data();
-    //       const haikooFollowing = data.haikoo_following;
-    
-    //       if (haikooFollowing) {
-    //         Object.keys(haikooFollowing).forEach((friendId) => {
-    //           // Extract individual friend data based on friend IDs
-    //           const friendData = haikooFollowing[friendId];
-    //           friends.push({ friend_id: friendId, ...friendData });
-    //         });
-    //       }
-    //     });
-    
-    //     console.log('User Friends:', friends);
-    //     return friends;
-    //   } catch (error) {
-    //     console.error('Error fetching user social data:', error);
-    //     return [];
-    //   }
-    // };
-
-
-    // useEffect(() => {
-    //   if (current_user) {
-    //     const userId = current_user.uid;
-  
-    //     fetchUserSocialData(userId)
-    //       .then((friends) => {
-    //         console.log('User Friends Data:', friends);
-    //         setFriends(friends); // Update the friends state with the fetched data
-    //       })
-    //       .catch((error) => {
-    //         console.error('Error:', error);
-    //       });
-    //   }
-    // }, [current_user]);
-  
-    
-    // const fetchUserSocialData = async (userId) => {
-    
-    //   const db = getFirestore();
-    //   const haikoosCollection = collection(db, 'users_social');
-    //   const q = query(haikoosCollection, where('user_id', '==', userId));
-    
-    //   try {
-    //     const querySnapshot = await getDocs(q);
-    //     const friends = [];
-    
-    //     querySnapshot.forEach((doc) => {
-    //       const data = doc.data();
-    //       // You can access fields from the document data, e.g., data.title, data.content, etc.
-    //       friends.push(data.friend_id);
-    //     });
-    //     console.log("newIQ" + friends)
-    //     return friends;
-    //   } catch (error) {
-    //     console.error('Error fetching user social data:', error);
-    //     return [];
-    //   }
-    // };
-
-    // async function getHaikoosForUser(userId) {
-    //   try {
-    //     const db = getFirestore();
-    //     const haikoosCollection = collection(db, 'users_social'); // Replace 'Haikoos' with the actual name of your collection
-
-    //     // Query the Haikoos collection to get haikoos created by the specified user
-    //     const q = query(haikoosCollection, where('user_id', '==', userId));
-
-    //     // Get the documents that match the query
-    //     const querySnapshot = await getDocs(q);
-
-    //     // Extract the haikoo data from the query results
-    //     const haikoos = querySnapshot.docs.map((doc) => {
-    //       const data = doc.data();
-    //       const haikooId = doc.haikoo_id;
-    //       return { haikooId, ...data };
-    //     });
-
-    //     console.log('Friend Haikoos:', haikoos); // Add this line for debugging
-
-    //     setFriendHaikoos(haikoos);
-    //     console.log("friendHaikoos" + friendHaikoos)
-    //     return haikoos;
-    //   } catch (error) {
-    //     console.error('Error fetching haikoos for user: ', error);
-    //     return [];
-    //   }
-    // }
 
 
 
@@ -488,40 +211,6 @@ const UserView = () => {
     };
     
 
-// async function getHaikoosForUser(userId) {
-//   try {
-//     const db = getFirestore();
-//     const haikoosCollection = collection(db, 'users_social'); // Replace 'Haikoos' with the actual name of your collection
-    
-//     // Query the Haikoos collection to get haikoos created by the specified user
-//     const q = query(haikoosCollection, where('user_id', '==', userId));
-
-//     // Get the documents that match the query
-//     const querySnapshot = await getDocs(q);
-
-//     // Extract the haikoo data from the query results
-//     const haikoos = querySnapshot.docs.map((doc) => {
-//       const data = doc.data();
-//       const haikooId = doc.id;
-//       return { haikooId, ...data };
-//     });
-//     setFriendHaikoos(haikoos);
-//     return haikoos;
-//   } catch (error) {
-//     console.error('Error fetching haikoos for user: ', error);
-//     return [];
-//   }
-// }
-
-// // Usage example
-// const userId = user.uid; // Replace with the actual user's ID
-// getHaikoosForUser(userId)
-//   .then((haikoos) => {
-//     console.log('Haikoos for the user:', haikoos);
-//   })
-//   .catch((error) => {
-//     console.error('Error:', error);
-//   });
 
 
       
@@ -568,12 +257,7 @@ const UserView = () => {
       </Button>
       <UploadPic onImageUploaded={handleImageUploaded}/>
     </Card>
-            {/* <p>{firebase.auth().currentUser.displayName}</p>
-            <p>{firebase.auth().currentUser.email}</p>
-            */}
-           
-            {/* <img src={ "/" + firebase.auth().currentUser.photoURL}/>
-            <p>{firebase.auth().currentUser.uid}</p> */}
+      
            
             <div className='Myhaikoos'>
             <h1>My haikoos</h1> 
@@ -585,20 +269,8 @@ const UserView = () => {
             )}</Grid>
             </div>
 
-            <div className='Myfriends'>
-            <h1>My friends</h1> 
-            <Grid  spacing="lg" justify="center" cols={3} gutterXs={50} gutterMd={50} gutterXl={50}>
-              {friendIds.map((friendId, index) => (
-                 <Grid.Col m={10} span={3} bg="white" key={index}>
-                   <strong>
-                 {friendNames[friendId] ? (
-                   friendNames[friendId]
-                 ) : (
-                   `User ${friendId}` // Display a default name or message if the name is not available
-                 )}
-                 </strong></Grid.Col>
-            ))}</Grid>
-            </div>
+       
+            <Friends/>
 
             <FavoriteHaikoos/>
             

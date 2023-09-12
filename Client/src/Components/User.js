@@ -33,8 +33,8 @@ const User = ({ userId }) => {
       {userData ? (
         <div>
           <h2>User Information</h2>
-          <p>Name: {userData.name}</p>
-          <p>Email: {userData.email}</p>
+          <p>Name: {userData.displayName}</p>
+          {/* <p>Email: {userData.mail}</p> */}
           {/* Add more user data fields as needed */}
         </div>
       ) : (
