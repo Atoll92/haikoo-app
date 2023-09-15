@@ -585,3 +585,8 @@ background-color: #e9e4d9;
   width:10vw;
   float: top;
 }
+
+/* user */
+.user img {
+max-width: 15vw;;
+}

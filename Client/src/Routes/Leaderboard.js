@@ -36,8 +36,12 @@ const user = auth.currentUser;
 
     React.useEffect(() => {
         fetchHaikoos()
+        getActiveStarsLive(fetched_haikoo)
+      
        
       }, []);
+
+      
     
       async function fetchHaikoos(){
         console.log("begin fetchHaikoos")
@@ -69,6 +73,7 @@ const user = auth.currentUser;
     
             // console.log(twoRandomHaikoo);
             setFetchedHaikoo(haikoo_array);
+           
             fetchImage(); 
 
     //         getDownloadURL(ref(storage, `images/${current_user.uid}`))
@@ -334,6 +339,41 @@ const user = auth.currentUser;
           console.error('Error toggling Haikoo in favorites: ', error);
         }
       };
+
+     
+    
+      const getActiveStarsLive = (fetched_haikoo) => {
+        if (!user.uid || !fetched_haikoo.id) {
+          return; // Exit early if no user is authenticated or haikoo.id is undefined
+        }
+        const db = getFirestore();
+        const userDocRef = doc(db, 'users_social', user.uid);
+      
+        getDoc(userDocRef)
+          .then((docSnapshot) => {
+            if (docSnapshot.exists()) {
+              const userData = docSnapshot.data();
+              const userFavorites = userData.favorites || {};
+      
+              // Check if a specific haikooId is in the user's favorites and set 'activeStarIcon' accordingly
+              if (userFavorites.hasOwnProperty(fetched_haikoo.id)) {
+                setActiveStarIcon(fetched_haikoo.id);
+              }
+            } else {
+              console.log('User document does not exist.');
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching user data:', error);
+          });
+      };
+     
+      
+      
+      
+      
+      
+      
       // const fav_function = async (haikoo) => {
       //   try {
       //     const auth = getAuth();
@@ -365,6 +405,7 @@ const user = auth.currentUser;
         <div>
           <Loginalt></Loginalt>
           <button onClick={fetchImage}>fetch image</button>
+
             <li id="haikoopast">
         {fetched_haikoo.map((haikoo, i) => (
           <animated.ul

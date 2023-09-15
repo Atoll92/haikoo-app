@@ -1,9 +1,34 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
+    
+       // Allow read access to all documents
+  match /{document=**} {
       allow read, write: if
-          request.time < timestamp.date(2022, 8, 19);
+          request.time < timestamp.date(2024, 8, 19);
+    }
+    // Allow write access to a user's own document
+    match /users/{userId} {
+      allow write: if request.auth.uid == userId;
+    }
+    // Allow read access to user documents by authenticated users
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      // You can add more specific rules for user documents if needed
+    }
+    // Allow users to read haikoo documents
+    match /Haikoos/{haikooId} {
+      allow read: if true;
+    }
+    
+    // Allow users to follow haikoo documents
+    match /users_social/{userId} {
+      allow write: if request.auth.uid == userId;
+    }
+      match /users_social/{document=**} {
+      allow read: if request.auth != null;
+      // Add other rules as needed
     }
   }
+    
 }
