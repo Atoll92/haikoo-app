@@ -232,6 +232,15 @@ const UserView = () => {
        
         
         /> */}
+        {/* <script async
+  src="https://js.stripe.com/v3/buy-button.js">
+</script>
+
+<stripe-buy-button
+  buy-button-id="buy_btn_1PonEw2KqNIKpvjTR3sjDwHZ"
+  publishable-key="pk_live_51PomwV2KqNIKpvjTaSUJSUuF41j7eSjsJxc2oPFf3omKBkUJAz0Q2hHSsDdATg2vZie9bOKSiFanC3jClektBUmR00GVvQFFkl"
+>
+</stripe-buy-button> */}
         <img   id="userpic"  ></img>
         
       </Card.Section>
@@ -264,8 +273,29 @@ const UserView = () => {
           
      
        
-       <Grid  spacing="lg" justify="center" cols={3} gutterXs={50} gutterMd={50} gutterXl={50}>{my_haikoos.map((haikoo, i) =>
-                 <Grid.Col m={10} span={3} bg="white" key={i}><strong>{haikoo.title}</strong><br/> " {haikoo.content}" by <i>{haikoo.author}</i><br/><Text>{haikoo.social_score}</Text></Grid.Col>
+       <Grid  spacing="lg" justify="center" cols={12} gutterXs={50} gutterMd={50} gutterXl={50}>
+        {my_haikoos.map((haikoo, i) =>
+                  <Grid.Col xs={12}  // Full width on extra small screens (mobile)
+                  sm={6}   // Half width on small screens (tablets)
+                  md={4}   // One-third width on medium screens (small laptops)
+                  lg={3}   // One-fourth width on large screens (desktops)
+                  xl={3}   >
+                        <Card padding="lg" radius="md" shadow="sm" withBorder>
+                            <Text weight={500} size="lg" mb="xs">
+                                {haikoo.title}
+                            </Text>
+                            <Text mb="md">
+                                {`"${haikoo.content}"`}
+                            </Text>
+                            <Text size="sm" color="gray">
+                                Technical Score: {haikoo.score}
+                            </Text>
+                        
+                            <Text size="sm" color="gray">
+                                Social Score: {haikoo.social_score}
+                            </Text>
+                        </Card>
+                    </Grid.Col>
             )}</Grid>
             </div>
 

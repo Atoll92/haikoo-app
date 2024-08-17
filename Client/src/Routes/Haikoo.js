@@ -156,6 +156,28 @@ const Haikoo = () => {
 
     }
 
+    function normalizeChar(char) {
+        // Define a mapping of special characters to their base equivalents
+        const specialCharMap = {
+            'é': 'e',
+            'è': 'e',
+            'ê': 'e',
+            'ë': 'e',
+            'à': 'a',
+            'â': 'a',
+            'ä': 'a',
+            'ô': 'o',
+            'ö': 'o',
+            'ù': 'u',
+            'û': 'u',
+            'ü': 'u',
+            // Add more mappings as needed
+        };
+    
+        // Normalize the character to its base equivalent if it exists in the mapping
+        return specialCharMap[char] || char;
+    }
+
     
 
 
@@ -247,16 +269,19 @@ const Haikoo = () => {
 
     function letterIsAvailable(letter, lettersstock) {
 
-        if (letter == ' ' || letter == ',' || letter == '.' || letter == '-' || letter == '=' || letter == '+' || letter == ';' || letter == '?' || letter == '!') {
+        letter = normalizeChar(letter);
+
+        const specialChars = [' ', ',', '.', "'", '-', '=', '+', ';', '?', '!', '(', ')','¨', '^','"','*'];
+
+        if (specialChars.includes(letter)) {
             return true;
         }
 
         for (var i = 0; i < lettersstock.length; i++) {
-            if (letter == lettersstock[i].value && !lettersstock[i].used) {
+            if (normalizeChar(letter) == normalizeChar(lettersstock[i].value) && !lettersstock[i].used) {
                 lettersstock[i].used = true;
                 playSound('/Audio/when-604.mp3');
                 return true;
-
             }
         }
 
@@ -285,33 +310,34 @@ const Haikoo = () => {
 
         // test string
         let userinput = document.getElementById("userinput").value;
-        let userinputpurged = userinput.replace(/[\ \'\"\.\,\?\:\!\;\+]+/g, '').length;
+        let userinputNormalized = userinput.split('').map(normalizeChar).join('');
+        let userinputpurged = userinputNormalized.replace(/[\ \'\"\.\,\?\:\!\;\+]+/g, '').length;
 
         console.log("purge :" + userinputpurged);
 
-        var userinputArray = userinput.toUpperCase().split('');
+        var userinputArray = userinputNormalized.toUpperCase().split('');
 
         // map for storing count values
         let ans = new Map();
-        for (let i = 0; i < userinput.length; i++) {
-            ans.set(userinput[i], 0);
+        for (let i = 0; i < userinputNormalized.length; i++) {
+            ans.set(userinputNormalized[i], 0);
         }
 
-        count(userinput, ans);
+        count(userinputNormalized, ans);
         console.log(inventaire);
-        console.log(userinput.split(''));
-        console.log("userinputlength:" + userinput.length);
+        console.log(userinputNormalized.split(''));
+        console.log("userinputlength:" + userinputNormalized.length);
         submit();
-        console.log("correct lengthy:" + userinput.replace(/ /g, "").replace(/,/g, "").length);
+        console.log("correct lengthy:" + userinputNormalized.replace(/ /g, "").replace(/,/g, "").length);
 
-        if (inventaire.length - userinput.replace(/ /g, "").replace(/,/g, "").replace(/;/g, "").length == 0) {
+        if (inventaire.length - userinputNormalized.replace(/ /g, "").replace(/,/g, "").replace(/;/g, "").length == 0) {
             playSound('/Audio/accomplished-579.mp3');
         }
 
         if (key != "Backspace") {
 
             //checking string is valid or not
-            if (userinput.length === 0) {
+            if (userinputNormalized.length === 0) {
                 console.log(" empty string ");
 
                 return;
@@ -398,11 +424,11 @@ const Haikoo = () => {
 
     if (!isSignedIn) {
         return (<><div id="presentation">
-            <h1>Discover Haikooz: A Creative Word Game for the Poet in You</h1>
-            <p><strong>Haikooz</strong> is a unique word game designed for those who revel in the art of constrained writing. Dive into a world where creativity flourishes through the playful challenge of using a daily set of random letters to craft your best haikoos.</p>
+            <h1>Discover Haikoo: A Creative Word Game for the Poet in You</h1>
+            <p><strong>Haikoo</strong> is a unique word game designed for those who revel in the art of constrained writing. Dive into a world where creativity flourishes through the playful challenge of using a daily set of random letters to craft your best haikoos.</p>
             
             <h2>✨ Unleash Your Creativity</h2>
-            <p>Every day brings a fresh batch of letters, and your mission is to transform these constraints into captivating works of art. Whether you’re inspired by poetry or driven by originality, Haikooz celebrates creativity in all its forms.</p>
+            <p>Every day brings a fresh batch of letters, and your mission is to transform these constraints into captivating works of art. Whether you’re inspired by poetry or driven by originality, Haikoo celebrates creativity in all its forms.</p>
             
             <h2>🌟 Peer-Reviewed Excellence</h2>
             <p>Your haikoos are not just written, they are reviewed. Originality, poetic flair, and artistic expression are evaluated by your peers, ensuring that every piece of writing receives the recognition it deserves.</p>
@@ -411,7 +437,7 @@ const Haikoo = () => {
             <p>In addition to creative reviews, each haikoo is given a technical score based on its length, rewarding precision and craftsmanship.</p>
             
             <h2>🕊️ A Space for Inner Peace</h2>
-            <p>There’s no rush in Haikooz. With no time limits, you can immerse yourself in the process, allowing your imagination to flourish and your creativity to flow freely.</p>
+            <p>There’s no rush in Haikoo. With no time limits, you can immerse yourself in the process, allowing your imagination to flourish and your creativity to flow freely.</p>
             
             <h2>🤝 Encouraging Kindness</h2>
             <p>In our community, every haikoo is valued. There are no negative votes—only positive ones. Everyone’s work is appreciated and celebrated, fostering a supportive environment where kindness reigns supreme.</p>
@@ -419,7 +445,7 @@ const Haikoo = () => {
             <h2>🌟 Daily Highlights</h2>
             <p>Top-ranking haikoos are featured daily on our homepage, showcasing the best of human ingenuity and the vibrant exchange of ideas. Be part of a miscellany that celebrates creativity and innovation.</p>
             
-            <p>Haikooz is free to play and open to all. If you enjoy the game and want to support its development, consider contributing <a href="#">here</a>.</p>
+            <p>Haikoo is free to play and open to all. If you enjoy the game and want to support its development, consider contributing <a href="#">here</a>.</p>
         </div>
 
         <h2 id="mottoCTA">Sign in and start writing!</h2>
