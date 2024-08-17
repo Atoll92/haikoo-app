@@ -397,23 +397,33 @@ const Haikoo = () => {
     }
 
     if (!isSignedIn) {
-        return (<>
-            <div id="presentation"><strong>Haikooz</strong> is a word game for those who seek to create works using constrained writing techniques.<br></br> 
-            Haikoonauts have to make the most of a daily renewed batch of random letters. <br></br>
-            Creativity is rewarded through peer reviewed criteria such as originality and poetry.<br>
-            </br>
-            A technical score is also given to an haikoo depending on its length. <br></br>
-            As a platform promoting inner peace there is no time limit so you can let your imagination thrive. <br></br>
-            We encourage kindness and there is no such thing as bad haikoo, votes can only go up.<br></br> 
-            Everyday, top ranking haikoos will be featured on the homepage and compiled into a miscellany celebrating human inventivity and exchange of ideas.<br></br>
-            Haikoo is free to play, if you enjoy playing it, support development by contributing <a>here</a>.<br></br>
+        return (<><div id="presentation">
+            <h1>Discover Haikooz: A Creative Word Game for the Poet in You</h1>
+            <p><strong>Haikooz</strong> is a unique word game designed for those who revel in the art of constrained writing. Dive into a world where creativity flourishes through the playful challenge of using a daily set of random letters to craft your best haikoos.</p>
             
+            <h2>✨ Unleash Your Creativity</h2>
+            <p>Every day brings a fresh batch of letters, and your mission is to transform these constraints into captivating works of art. Whether you’re inspired by poetry or driven by originality, Haikooz celebrates creativity in all its forms.</p>
+            
+            <h2>🌟 Peer-Reviewed Excellence</h2>
+            <p>Your haikoos are not just written, they are reviewed. Originality, poetic flair, and artistic expression are evaluated by your peers, ensuring that every piece of writing receives the recognition it deserves.</p>
+            
+            <h2>📏 Technical Mastery</h2>
+            <p>In addition to creative reviews, each haikoo is given a technical score based on its length, rewarding precision and craftsmanship.</p>
+            
+            <h2>🕊️ A Space for Inner Peace</h2>
+            <p>There’s no rush in Haikooz. With no time limits, you can immerse yourself in the process, allowing your imagination to flourish and your creativity to flow freely.</p>
+            
+            <h2>🤝 Encouraging Kindness</h2>
+            <p>In our community, every haikoo is valued. There are no negative votes—only positive ones. Everyone’s work is appreciated and celebrated, fostering a supportive environment where kindness reigns supreme.</p>
+            
+            <h2>🌟 Daily Highlights</h2>
+            <p>Top-ranking haikoos are featured daily on our homepage, showcasing the best of human ingenuity and the vibrant exchange of ideas. Be part of a miscellany that celebrates creativity and innovation.</p>
+            
+            <p>Haikooz is free to play and open to all. If you enjoy the game and want to support its development, consider contributing <a href="#">here</a>.</p>
         </div>
 
-<h2 id="mottoCTA">Sign in and start writing !</h2>
-
-
-</>
+        <h2 id="mottoCTA">Sign in and start writing!</h2>
+    </>
    
 
 
