@@ -398,7 +398,7 @@ const Haikoo = () => {
 
     if (!isSignedIn) {
         return (<>
-            <div id="presentation"><strong>Haikoo</strong> is a word game for those who seek to create works using constrained writing techniques.<br></br> 
+            <div id="presentation"><strong>Haikooz</strong> is a word game for those who seek to create works using constrained writing techniques.<br></br> 
             Haikoonauts have to make the most of a daily renewed batch of random letters. <br></br>
             Creativity is rewarded through peer reviewed criteria such as originality and poetry.<br>
             </br>
