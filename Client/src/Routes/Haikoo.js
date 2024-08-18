@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Login from '../Login';
 import firebase from 'firebase/compat/app';
-import * as firebaseui from 'firebaseui'
-import 'firebaseui/dist/firebaseui.css'
+// import * as firebaseui from 'firebaseui'
+// import 'firebaseui/dist/firebaseui.css'
 import SignInScreen from '../Login';
 import Loginalt from './Loginalt';
 import UserView from './UserView';
