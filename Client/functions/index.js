@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const stripe = require('stripe')('sk_test_51PomwV2KqNIKpvjTLJHgNKavSRbgvnyAZSFWdysCdn779Hdq2bvmJHw1dRqEsosZTN6aSz9evVOWXA7P5YlJFLMh00mraN0LnF'); // Replace with your Stripe secret key
+const stripe = require('stripe')('pk_test_51PomwV2KqNIKpvjTmfXGqzMBFeOaL5IB6eo2JXrYQyQA6I9SpcBk0BUryvoLItEwLsIqAhJjKN32a3OAsXaDHPFV00nKPNqqnx'); // Replace with your Stripe secret key
 const logger = require('firebase-functions/logger');
 const express = require('express');
 const app = express();
