@@ -26,6 +26,7 @@ const UserView = () => {
   const [my_haikoos, setMyHaikoos] = useState([]);
   const [my_score, setMyScore] = useState(0);
   const [customerId, setCustomerId] = useState(null);
+  const [customerID, setCustomerID] = useState(null);
 
   // Function to create a payment intent and save it to Firestore
   const createPaymentIntent = async () => {
@@ -73,6 +74,7 @@ const UserView = () => {
     }
   };
 
+
   // Function to fetch customer data from Firestore
   const fetchCustomerData = async (uid) => {
     try {
@@ -99,6 +101,37 @@ const UserView = () => {
     }
   };
 
+  // fetch customer id from  customers/${user.uid}/stripeId in firestore
+  const fetchCustomerId = async () => {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+      console.error("No user is signed in! customerID");
+      return;
+    } 
+  
+    // Reference the document for the user
+    const customerRef = doc(firestore, `customers/${user.uid}`);
+  
+    try {
+      const customerDoc = await getDoc(customerRef);
+  
+      if (customerDoc.exists()) {
+        // Access the stripeId field within the document
+        const customerId = customerDoc.data().stripeId;
+        console.log('Customer ID:', customerId);
+        setCustomerID(customerId);
+      } else {
+        console.error('No such customer document!');
+      }
+    } catch (error) {
+      console.error('Error fetching customer ID:', error);
+    }
+  };
+  
+
+  fetchCustomerId()
+
+
   // Handle user authentication state changes
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -106,7 +139,9 @@ const UserView = () => {
         console.log("User signed in:", user);
         setCurrentUser(user);
         setIsSignedIn(true);
-        await fetchCustomerData(user.uid); // Ensure customer data is fetched/created
+        await fetchCustomerData(user.uid); 
+        console.log("fetchCustomerData", user.uid);
+        // Ensure customer data is fetched/created
       } else {
         console.log("User not signed in.");
         setIsSignedIn(false);
@@ -186,7 +221,10 @@ const UserView = () => {
           Nombre total de haikoos publiés: {my_haikoos.length}<br />
           id: {firebase.auth().currentUser.uid}<br />
           display name: {firebase.auth().currentUser.displayName}<br />
-          customerId: {customerId}<br />
+   
+        
+
+          customerID: {customerID}<br />
         </Text>
         <Button variant="light" color="blue" fullWidth mt="md" radius="md">Review my info</Button>
         <UploadPic onImageUploaded={handleImageUploaded} />
