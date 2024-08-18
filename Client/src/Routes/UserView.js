@@ -14,7 +14,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import StripeBuyButton from '../Components/StripeBuyButton';
 
 // Initialize Firebase
-const stripePromise = loadStripe('your-stripe-publishable-key');
+const stripePromise = loadStripe('pk_test_51PomwV2KqNIKpvjTmfXGqzMBFeOaL5IB6eo2JXrYQyQA6I9SpcBk0BUryvoLItEwLsIqAhJjKN32a3OAsXaDHPFV00nKPNqqnx');
 const storage = getStorage();
 const firestore = getFirestore();
 const auth = firebase.auth();
