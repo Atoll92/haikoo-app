@@ -14,7 +14,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import StripeBuyButton from '../Components/StripeBuyButton';
 
 // Initialize Firebase
-const stripePromise = loadStripe('pk_test_51PomwV2KqNIKpvjTmfXGqzMBFeOaL5IB6eo2JXrYQyQA6I9SpcBk0BUryvoLItEwLsIqAhJjKN32a3OAsXaDHPFV00nKPNqqnx');
+const stripePromise = loadStripe('rk_test_51PomwV2KqNIKpvjT5yk9uZWJ6ADgvDtNj2ZxaKGM442ALPsXV0AsbyIlL45yXnRcvkppe7cyFpvbvmA83ejiEBet00ZWCVUWlp');
 const storage = getStorage();
 const firestore = getFirestore();
 const auth = firebase.auth();
