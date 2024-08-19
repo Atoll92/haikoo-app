@@ -1,34 +1,43 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-       // Allow read access to all documents
-  match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2024, 8, 19);
-    }
-    // Allow write access to a user's own document
+
+    // Allow users to read and write their own user documents
     match /users/{userId} {
-      allow write: if request.auth.uid == userId;
+      allow read, write: if request.auth.uid == userId;
     }
-    // Allow read access to user documents by authenticated users
-    match /users/{userId} {
-      allow read: if request.auth != null;
-      // You can add more specific rules for user documents if needed
+
+    // Stripe customers collection
+    match /customers/{userId} {
+      // Allow a user to read and write their own Stripe customer document
+      allow read, write: if request.auth.uid == userId;
     }
-    // Allow users to read haikoo documents
+
+    // Payment intents collection for each user
+    match /customers/{userId}/payments/{paymentId} {
+      // Allow a user to read and write their own payment intent documents
+      allow read, write: if request.auth.uid == userId;
+    }
+
+    // Subscriptions collection for each user
+    match /customers/{userId}/subscriptions/{subscriptionId} {
+      // Allow a user to read their own subscription documents
+      allow read, write: if request.auth.uid == userId;
+    }
+
+    // Allow read access to Haikoos for authenticated users
     match /Haikoos/{haikooId} {
-      allow read: if true;
+      allow read: if request.auth != null;
+    }
+
+    // Social interactions (following, etc.) by the authenticated user
+    match /users_social/{userId} {
+      allow read, write: if request.auth.uid == userId;
     }
     
-    // Allow users to follow haikoo documents
-    match /users_social/{userId} {
-      allow write: if request.auth.uid == userId;
-    }
-      match /users_social/{document=**} {
-      allow read: if request.auth != null;
-      // Add other rules as needed
+    // Any other documents that need public access can be configured here
+    match /public/{documentId} {
+      allow read: if true;  // Public access
     }
   }
-    
 }
